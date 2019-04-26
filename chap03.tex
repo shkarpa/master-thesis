@@ -1,0 +1,599 @@
+\chapter{General 0-1-fillings avoiding a chain of length 2}
+
+Given any skew diagram $S$, it is known that there are at least as many sparse 0-1-fillings of $S$ avoiding an $NE$-chain
+of length 2 as there are sparse 0-1-fillings of $S$ avoiding an $SE$-chain of length 2. In this chapter,
+we will extend this result to general 0-1-fillings.
+
+Recall the skew diagram $S^{forb}$ defined in the previous chapter. We denote by $S^{forb}(132)$ the diagram $S^{forb}$
+associated with a sparse 0-1-filling of a 132 pattern, as shown in the Figure \ref{figure_sforb_132}.
+We then say that a filling of a skew diagram $S$ \emph{contains} $S^{forb}(132)$ if we can obtain $S^{forb}(132)$ by
+removing some columns and rows of $S$ and replacing some entries 1 by entries 0. Otherwise the filling of $S$ \emph{avoids} $S^{forb}(132)$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(5.9,0.53) rectangle (9.1,4.25);
+\draw (6,3)-- (6,1);
+\draw (7,4)-- (7,1);
+\draw (8,4)-- (8,1);
+\draw (9,4)-- (9,2);
+\draw (9,2)-- (6,2);
+\draw (8,1)-- (6,1);
+\draw (6,3)-- (9,3);
+\draw (9,4)-- (7,4);
+\draw (6.5, 1.5) node {$\times$};
+\draw (8.5, 2.5) node {$\times$};
+\draw (7.5, 3.5) node {$\times$};
+\end{tikzpicture}
+\caption{$S^{forb}(132)$}
+\label{figure_sforb_132}
+\end{figure}
+
+The following theorem is a simple consequence of a known result due to Jelínek \cite[Lemmas 29 and 30]{Jelinek08}.
+\begin{thm}\label{thm_1}
+Let $S$ be a skew diagram. Then the number of sparse 0-1-fillings of $S$ avoiding an $NE$-chain of length 2 and $S^{forb}(132)$
+is equal to the number of sparse 0-1-fillings of $S$ avoiding an $SE$-chain of length 2.
+\end{thm}
+
+The goal of this chapter is to prove the following stronger claim.
+\begin{thm} \label{thm_2}
+Let $S$ be a skew diagram. Then there is a bijection between general 0-1-fillings of $S$ avoiding a $NE$-chain of length 2 and $S^{forb}(132)$
+and general 0-1-fillings of $S$ avoiding a $SE$-chain of length 2.
+\end{thm}
+
+Given a skew diagram $S$ with a total of $N$ cells, we assign labels $c_1, c_2, \ldots, c_N$ to every cell starting from the lower left
+corner, iterating over rows from the bottom to the top of $S$ and labeling cells in a row from left to right, as indicated in Figure 
+\ref{figure_cell_labels}.
+
+We associate with every cell $c$ a three-part piecewise linear curve $l(c)$ consisting of the ray going from the upper-right corner of $c$
+to the left, the right border of $c$ and the ray going from the lower-right corner of $c$ to the right. The curve $l(c_i)$
+of a cell $c_i$ of a skew diagram $S$ clearly divides it into two parts, as illustrated in Figure \ref{figure_cell_labels}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-6,-1.14) rectangle (3,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw (-3.5, -0.5) node {$c_1$};
+\draw (-2.5, -0.5) node {$c_2$};
+\draw (-3.5, 0.5) node {$c_3$};
+\draw (-2.5, 0.5) node {$c_4$};
+\draw (-1.5, 0.5) node {$c_5$};
+\draw (-0.5, 0.5) node {$c_6$};
+\draw (-2.5, 1.5) node {$c_7$};
+\draw (-1.5, 1.5) node {$c_8$};
+\draw (-0.5, 1.5) node {$c_9$};
+\draw (-1.5, 2.5) node {$c_{10}$};
+\draw (-0.5, 2.5) node {$c_{11}$};
+\draw (0.5, 2.5) node {$c_{12}$};
+\draw [line width=1.6pt] (-1,2) -- (-10,2);
+\draw [line width=1.6pt] (-1,1) -- (10,1);
+\draw [line width=1.6pt] (-1,2) -- (-1,1);
+\end{tikzpicture}
+\caption{A skew diagram with cell labels and the curve $l(c_8)$}
+\label{figure_cell_labels}
+\end{figure}
+
+We continue by defining a special set of fillings for every cell of a skew diagram.
+Let $N$ be the number of cells of a skew diagram $S$ and let $i$ be an integer between 1 and $N$. We define the set $\mathcal{G}_i(S)$
+as the set of all 0-1-fillings of $S$ which satisfy the following conditions:
+\begin{enumerate}[(a)]
+\item there is no occurence of a $SE$-chain of length 2 with both 1's above $l(c_i)$,
+\item there is no occurence of a $SE$-chain of length 2 with the upper 1 above $l(c_i)$ and the lower 1 below $l(c_i)$,
+\item there is no occurence of a $SE$-chain of length 2 with the upper 1 in the same row as $c_i$ and the lower 1 strictly right of $c_i$,
+\item there is no occurence of a $NE$-chain of length 2 entirely below $l(c_i)$,
+\item there is no occurence of $S^{forb}(132)$ entirely below $l(c_i)$.
+\end{enumerate}
+
+\begin{figure}[h]
+\centering
+\subfloat[][] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+\clip(-6,-1.14) rectangle (3,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw [line width=1.6pt] (-1,2) -- (-10,2);
+\draw [line width=1.6pt] (-1,1) -- (10,1);
+\draw [line width=1.6pt] (-1,2) -- (-1,1);
+\draw (-1.5, 2.5) node {$\times$};
+\draw (-0.5, 1.5) node {$\times$};
+\end{tikzpicture}
+}
+\subfloat[][] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+\clip(-6,-1.14) rectangle (3,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw [line width=1.6pt] (-1,2) -- (-10,2);
+\draw [line width=1.6pt] (-1,1) -- (10,1);
+\draw [line width=1.6pt] (-1,2) -- (-1,1);
+\draw (-1.5, 2.5) node {$\times$};
+\draw (-0.5, 0.5) node {$\times$};
+\end{tikzpicture}
+}
+\subfloat[][] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+\clip(-6,-1.14) rectangle (3,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw [line width=1.6pt] (-1,2) -- (-10,2);
+\draw [line width=1.6pt] (-1,1) -- (10,1);
+\draw [line width=1.6pt] (-1,2) -- (-1,1);
+\draw (-2.5, 1.5) node {$\times$};
+\draw (-0.5, 0.5) node {$\times$};
+\end{tikzpicture}
+}
+
+\subfloat[][] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+\clip(-6,-1.14) rectangle (3,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw [line width=1.6pt] (-1,2) -- (-10,2);
+\draw [line width=1.6pt] (-1,1) -- (10,1);
+\draw [line width=1.6pt] (-1,2) -- (-1,1);
+\draw (-3.5, -0.5) node {$\times$};
+\draw (-2.5, 0.5) node {$\times$};
+\end{tikzpicture}
+}
+\subfloat[][] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+\clip(-6,-1.14) rectangle (3,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw [line width=1.6pt] (-1,2) -- (-10,2);
+\draw [line width=1.6pt] (-1,1) -- (10,1);
+\draw [line width=1.6pt] (-1,2) -- (-1,1);
+\draw (-3.5, -0.5) node {$\times$};
+\draw (-2.5, 1.5) node {$\times$};
+\draw (-1.5, 0.5) node {$\times$};
+\end{tikzpicture}
+}
+\caption{Forbidden patterns of $\mathcal{G}_8(S)$}
+\end{figure}
+
+Note that $\mathcal{G}_1(S)$ is the set of all 0-1-fillings of $S$ avoiding a $SE$-chain of length 2 and $\mathcal{G}_N(S)$
+is the set of all 0-1-fillings of $S$ avoiding a $NE$-chain of length 2 and $S^{forb}(132)$. Therefore,
+ to prove Theorem \ref{thm_2} it is enough to construct 
+ a chain of bijections between consecutive sets $\mathcal{G}_i(S)$ and $\mathcal{G}_{i+1}(S)$, which is done by the following lemma.
+
+\begin{lemma}\label{lemma_gi}
+Let $S$ be a skew diagram with $N$ cells and let $1 \leq i < N$. Then there is a bijection between fillings in $\mathcal{G}_i(S)$
+and $\mathcal{G}_{i+1}(S)$.
+\end{lemma}
+\begin{proof}
+First, consider the case where the cells $c_i$ and $c_{i+1}$ are not in the same row, i.e. $c_{i+1}$ is the first cell of a new row
+and $c_i$ is the last cell of the previous row. In this case we will show that the sets $\mathcal{G}_i(S)$ and $\mathcal{G}_{i+1}(S)$
+are identical.
+
+Choose any filling of $S$ from $\mathcal{G}_i(S)$. Suppose that the selected filling contains an occurence of 
+a pattern forbidden in $\mathcal{G}_{i+1}(S)$. Since $l(c_i)$ and $l(c_{i+1})$ create the same division of $S$ into two parts
+except for the cell $c_{i+1}(S)$, the occurence of a forbidden pattern must use the cell $c_{i+1}$ filled with a 1, otherwise it would also be
+forbidden in $\mathcal{G}_i(S)$. Since $c_{i+1}$ starts a row, it cannot be used to break the conditions (a), (b) or (d) of $\mathcal{G}_{i+1}(S)$.
+Also since the rest of the row starting with $c_{i+1}$ is above $l(c_{i+1})$, the condition (e) cannot be broken either. Therefore the supposed
+occurence of a forbidden pattern must break the condition (c) of $\mathcal{G}_{i+1}(S)$. However, such an occurence would break
+the condition (b) of $\mathcal{G}_i(S)$, which is a contradiction, and so the chosen filling is also in $\mathcal{G}_{i+1}(S)$.
+
+Now choose any filling of $S$ from $\mathcal{G}_{i+1}(S)$ and again suppose that it breaks at least one condition of $\mathcal{G}_i(S)$.
+Using similar arguments as before we can show that this must be the condition (b) and a 1 in the cell $c_{i+1}$ is used as the upper
+1 of the $SE$-chain. Then this $SE$-chain breaks the condition (c) of $\mathcal{G}_{i+1}(S)$ and the contradiction is reached again,
+showing that indeed $\mathcal{G}_i = \mathcal{G}_{i+1}$.
+
+
+The second and more interesting case is when the cells $c_i$ and $c_{i+1}$ are adjacent cells in a row. We will divide each of the 
+sets $\mathcal{G}_i{S}$ and $\mathcal{G}_{i+1}(S)$ into two disjoint parts and construct bijections between corresponding pairs.
+Let $R$ be the row of all cells strictly left of $c_{i+1}$, let $C$ be the column of all cells strictly below $c_{i+1}$
+and let $A$ be the rectangle consisting of all cells that are strictly below $R$ and left of $C$. Note that $A$, $R$, $C$ and $c_{i+1}$
+form the rectangle $M$ which is the maximal rectangle contained in $S$ with $c_{i+1}$ as its northeast corner. 
+Therefore, in any occurence of a $NE$-chain with the upper 1 in the cell $c_{i+1}$, the lower 1 is inside the rectangle $A$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(0.67,0.63) rectangle (14.32,12.34);
+\draw (1,1)-- (5,1);
+\draw (5,1)-- (5,2);
+\draw (5,2)-- (8,2);
+\draw (8,2)-- (8,4);
+\draw (8,4)-- (11,4);
+\draw (11,4)-- (11,6);
+\draw (11,6)-- (13,6);
+\draw (13,6)-- (13,9);
+\draw (13,9)-- (14,9);
+\draw (14,9)-- (14,12);
+\draw (1,1)-- (1,4);
+\draw (1,4)-- (2,4);
+\draw (2,4)-- (2,8);
+\draw (2,8)-- (4,8);
+\draw (4,8)-- (4,11);
+\draw (4,11)-- (8,11);
+\draw (8,11)-- (8,12);
+\draw (8,12)-- (14,12);
+\draw (2,8)-- (9,8);
+\draw [dash pattern=on 2pt off 2pt] (9,8)-- (9,4);
+\draw [dash pattern=on 2pt off 2pt] (9,4)-- (2,4);
+\draw [dash pattern=on 2pt off 2pt] (8,4)-- (8,8);
+\draw [dash pattern=on 2pt off 2pt] (2,7)-- (8,7);
+\draw (5, 7.5) node {$R$};
+\draw (5, 5.5) node {$A$};
+\draw (8.5, 5.5) node {$C$};
+\draw (8.5, 7.5) node {$c_{i+1}$};
+\draw [line width=1.6pt] (2,8) -- (9,8);
+\draw [line width=1.6pt] (9,8) -- (9,7);
+\draw [line width=1.6pt] (8,8) -- (8,7);
+\draw [line width=1.6pt] (8,7) -- (13,7);
+\end{tikzpicture}
+\caption{The maximal rectangle $M$ with $c_{i+1}$ in the northeast corner}
+\label{figure_max_rec}
+\end{figure}
+
+
+We divide $\mathcal{G}_i(S)$ into two disjoint sets as follows:
+\begin{itemize}
+\item $\mathcal{G}_i^1(S)$ contains the fillings in which there is either no 1 in $c_{i+1}$ or no 1 inside $A$,
+\item $\mathcal{G}_i^2(S)$ contains the fillings with a 1 in $c_{i+1}$ and at least one 1 inside $A$.
+\end{itemize}
+
+We divide $\mathcal{G}_{i+1}(S)$ into five disjoint sets as follows:
+\begin{itemize}
+\item $\mathcal{G}_{i+1}^1(S)$ contains the fillings in which there is either no 1 inside $R$ or no 1 inside $C$,
+\item $\mathcal{G}_{i+1}^2(S)$ contains the fillings in which both $R$ and $C$ are nonempty. 
+\end{itemize}
+
+First of all we show that, similarly as in the first part of the proof, the sets $\mathcal{G}_i^1(S)$ and $\mathcal{G}_{i+1}^1(S)$
+in fact contain the same fillings, so we may use the identity map between them. Choose a filling from $\mathcal{G}_i^1(S)$.
+Clearly, if $c_i$ and $c_{i+1}$ are adjacent cells, a filling that satisfies the conditions of $\mathcal{G}_i(S)$ 
+also satisfies the conditions (a), (b) and (c) of $\mathcal{G}_{i+1}(S)$. The condition (d) can only be broken by a $NE$-chain of 
+length 2 with the upper 1 in the cell $c_{i+1}$, but there is no 1 in that cell in the fillings of $\mathcal{G}_i^1(S)$.
+Finally, if there is an occurence of $S^{forb}(132)$ in the filling that breaks the condition (e) of $\mathcal{G}_{i+1}(S)$
+but not of $\mathcal{G}_i(S)$, it must be the case that the upper right corner of the occurence is the cell $c_{i+1}$ and therefore 
+there is a 1 in $R$ and a 1 in $C$ and so the condition (c) of $\mathcal{G}_i(S)$ is broken. Therefore the selected filling
+is in $\mathcal{G}_{i+1}^1$. By reverting the arguments we easily get also the opposite inclusion and so $\mathcal{G}_i^1(S) =
+\mathcal{G}_{i+1}^1(S)$.
+
+For the fillings of $\mathcal{G}^2_i(S)$ 
+we perform the following transformation $f$ into a filling of $\mathcal{G}^2_{i+1}(S)$:
+\begin{enumerate}
+\item Label all nonempty columns of $A$ from left to right as $C_1, C_2, \ldots C_k$.
+\item If $C$ is nonempty, then $R$ is empty and we move the 1 from the cell $c_{i+1}$ to the cell of $R$ above
+the column $C_1$ and finish.
+\item If $C$ is empty, then replace the filling of $C$ by the filling of $C_k$ and for $1 \leq j < k$ replace
+the filling of $C_{j+1}$ by the filling of $C_j$. Replace the filling of $C_1$ by all zeros.
+\item If there is a 1 in the cell of $R$ above the column $C_1$, finish if $k = 1$ or move the 1 from $c_{i+1}$ to the cell of $R$
+above the column $C_2$ if $k > 1$.
+\item Finally if there is no 1 in the cell of $R$ above the column $C_1$, move the 1 from $c_{i+1}$ to this cell.
+\end{enumerate}
+
+We continue by showing that the result of the transformation $f$ satisfies all five conditions of $\mathcal{G}_{i+1}(S)$.
+\begin{enumerate}[(a)]
+\item 
+Since we only modified entries below $l(c_{i+1})$, the condition (a) is satisfied. 
+\item The condition (b) could
+only be broken by an $SE$-chain with its lower 1 inside $A$ or $C$, but the upper 1 of this chain would have 
+formed an $SE$-chain with the 1 originally in the cell $c_{i+1}$, breaking the condition (a)
+of $\mathcal{G}_i(S)$. Therefore, the condition (b) is satisfied. 
+\item The condition (c) could only be broken
+by an $SE$-chain with its upper 1 in $R$ or $c_{i+1}$, but the lower 1 of this chain together with the 1 originally in $c_{i+1}$
+would break the condition (b) of $\mathcal{G}_i(S)$. 
+\item The condition (d) could be broken in one of the following ways:
+\begin{itemize} 
+\item There is a $NE$-chain with the upper 1 in $R$ or $c_{i+1}$ and lower 1 in $A$. After
+the performed transformation all 1's in $R$ are stricly left of or right above the column $C_1$, and a 1 remains in $c_{i+1}$
+only if $A$ ends up empty, so this case cannot occur. 
+\item There is a $NE$-chain with the upper 1 in $A$ and lower 1 outside $A$. In this case suppose that there is a $NE$-chain with
+the upper 1 being the lowest 1 in the column $C_j$. The column $C_j$ was nonempty also before the transformation
+and it was either the same or it contained the current filling of $C_{j+1}$, so the lowest 1 in $C_j$ was not higher than after the transformation,
+therefore there was a $NE$-chain to begin with, which is a contradiction.
+\item There is a $NE$-chain with the upper 1 in $C$. If the filling of $C$ has not changed, the $NE$-chain was there before the transformation also.
+Otherwise $C$ now contains the filling of $C_k$. If the lower 1 of the $NE$-chain is strictly left of the column $C_k$, it forms
+a $NE$-chain with a 1 in $C_k$ in the original filling. Otherwise it is below the rectangle $A$ and so it forms a $NE$-chain with the
+1 in the cell $c_{i+1}$ in the original filling.
+\end{itemize}
+
+\item If the condition (e) is broken, the occurence of $S^{forb}(132)$ must have its upper $SE$-chain contained in $M$ and the lower 1
+is outside of $M$ strictly southwest of it. Let $u$, $v$ be the two cells inside $M$ and let $w$ be the cell outside $M$ as illustrated
+in Figure \ref{figure_sforb_occ}. Let $B$ be the maximal rectangle contained in $S$ with the cell $w$ as its southwest corner. S
+Since there is a 1 in the cell $w$, all entries in the intersection of $M$ and $B$ are zero both before and after the transformation of the filling.
+The cell $u$ is strictly above the rectangle $B$ and the cell $v$ is strictly right of the rectangle $B$. Now we observe an important property
+of the described transformation: any row or column of $M$ was nonempty before the transformation if and only if it is nonempty after the transformation.
+This is obvious for rows because we shift nonzero entries only in the horizontal direction. If the column $C_1$ is empty after the transformation,
+then the cell of $R$ right above $C_1$ always contains a 1. If the column $C$ is nonempty after the transformation, either it was nonempty
+before the transformation or there was a 1 in $c_{i+1}$ before the transformation. For other columns the discussion is straightforward.
+We can use this property to deduce that there was a 1 in the same column of $M$ as $u$ and a 1 in the same row of $M$ as $v$ before the transformation.
+Since these have to be outside the rectangle $B$, they form an occurence of $S^{forb}(132)$ together with the cell $w$ in the original filling
+and a contradiction is reached. Therefore the condition (e) of $\mathcal{G}_{i+1}(S)$ could not have been broken by the transformation either.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.8cm,y=0.8cm]
+\clip(0.84,0.73) rectangle (14.25,12.24);
+\draw (1,1)-- (5,1);
+\draw (5,1)-- (5,2);
+\draw (5,2)-- (8,2);
+\draw (8,2)-- (8,4);
+\draw (8,4)-- (11,4);
+\draw (11,4)-- (11,6);
+\draw (11,6)-- (13,6);
+\draw (13,6)-- (13,9);
+\draw (13,9)-- (14,9);
+\draw (14,9)-- (14,12);
+\draw (1,1)-- (1,4);
+\draw (1,4)-- (2,4);
+\draw (2,4)-- (2,8);
+\draw (2,8)-- (4,8);
+\draw (4,8)-- (4,11);
+\draw (4,11)-- (8,11);
+\draw (8,11)-- (8,12);
+\draw (8,12)-- (14,12);
+\draw [line width=1.6pt] (4,10)-- (10,10);
+\draw [line width=1.6pt] (10,10)-- (10,4);
+\draw [line width=1.6pt] (4,8)-- (4,4);
+\draw [line width=1.6pt] (4,4)-- (8,4);
+\draw [line width=1.6pt] (4,10)-- (4,8);
+\draw [line width=1.6pt] (8,4)-- (10,4);
+\draw [line width=1.6pt] (2,2)-- (8,2);
+\draw [line width=1.6pt] (8,2)-- (8,8);
+\draw [line width=1.6pt] (2,2)-- (2,8);
+\draw (3,5) node {$B$};
+\draw (6,6) node {\huge $\emptyset$};
+\draw [line width=1.6pt] (2,8)-- (8,8);
+\draw (6,8)--(6,9);
+\draw (6,9)--(7,9);
+\draw (7,9)--(7,8);
+\draw (7,8)--(6,8);
+\draw (6.5,8.5) node {$\times$};
+\draw (6.76,8.76) node {$u$};
+\draw (8,7)--(8,8);
+\draw (8,8)--(9,8);
+\draw (9,8)--(9,7);
+\draw (9,7)--(8,7);
+\draw (8.5,7.5) node {$\times$};
+\draw (8.76,7.76) node{$v$};
+\draw (2,2)--(2,3);
+\draw (2,3)--(3,3);
+\draw (3,3)--(3,2);
+\draw (3,2)--(2,2);
+\draw (2.5,2.5) node {$\times$};
+\draw (2.76,2.76) node {$w$};
+\draw (9,9)--(9,10);
+\draw (9,10)--(10,10);
+\draw (10,10)--(10,9);
+\draw (10,9)--(9,9);
+\draw (9.5,9.5) node {$c_{i+1}$};
+\draw (9.11,4.71) node {$M$};
+\end{tikzpicture}
+\caption{An occurence of $S^{forb}(132)$ in the cells $u$, $v$ and $w$}
+\label{figure_sforb_occ}
+\end{figure}  
+\end{enumerate}
+
+We have shown that the transformation $f$ indeed transforms a filling of $\mathcal{G}^2_i(S)$ 
+into a filling of $\mathcal{G}^2_{i+1}(S)$.
+Next we describe the transformation $g$ 
+transforms a filling of $\mathcal{G}^2_{i+1}(S)$ into a filling of $\mathcal{G}^2_i(S)$. Note that $g$
+simply reverts the steps of the transformation $f$.
+
+\begin{enumerate}
+\item If there is exactly one entry 1 in $R$ and the column of $A$ below this entry is nonempty, move this entry to $c_{i+1}$ and finish.
+\item Otherwise there are either at least two 1's in $R$ or the column below the single entry 1 is empty. In both cases we can
+choose the rightmost empty column of $A$ such that there is a 1 in $R$ above it. We call this column $C_1$.
+Label all nonempty columns of $A$ from left to right as $C_2, C_3, \ldots, C_k$. 
+\item For each $1 \leq j < k$ copy the filling of $C_{j+1}$ to $C_j$, copy the filling of $C$ to $C_k$
+and replace the filling of $C$ by all zeros.
+
+\item If $k = 1$ finish. If $k > 2$ and there is a 1 in $R$ above $C_2$, this is the rightmost 1 in $R$, move it to $c_{i+1}$ and finish.
+
+\item Finally if the entry 1 in $R$ above $C_1$ is the rightmost 1 in $R$, move this 1 to $c_{i+1}$.
+\end{enumerate}
+
+Next we choose any filling from $\mathcal{G}_{i+1}(S) \setminus \mathcal{G}_{i+1}^1(S)$, transform it using the described transformation $g$ and show
+that it satisfies all five conditions for the fillings of $\mathcal{G}_i(S)$.
+
+\begin{enumerate}[(a)]
+\item The condition (a) could only be broken by a $SE$-chain with the lower 1 in the cell $c_{i+1}$, but then there is a $SE$-chain
+present in the original filling with the same upper 1 and the lower 1 in the column $C$ violating
+ the condition (b) of $\mathcal{G}_{i+1}(S)$, which is not possible.
+\item All 1's that were moved in the transformation were moved to the left except the 1 in the cell $c_{i+1}$ which is above $l(c_i)$. Therefore
+if the condition (b) is broken after the transformation, it must be broken in the original filling as well.
+\item The condition (c) could only be broken by a $SE$-chain with the upper 1 in $R$ and the lower 1 in $C$, since otherwise it would
+have been in the original filling. But after the transformation, either $R$ or $C$ is empty.
+\item Suppose that after the transformation there is a $NE$-chain below $l(c_i)$. Then due to the properties of the transformation
+one of them is inside of $M$, and the other is outside of $M$. Label the cell with the 1 inside $M$ as $v$
+and the cell outside of $M$ as $u$. Again we will make use of the fact
+that emptiness and nonemptiness of rows and columns of $M$ is preserved by the transformation.
+If the column of $S$ in which lies $u$ intersects $M$, then the cell in the column of $M$ in which lies $v$ which was nonempty
+in the original filling creates a $NE$-chain with $u$. Similarly if the row of $S$ in which lies $u$ intersects $M$, then the cell
+in the row of $M$ in which lies $v$ which was nonempty in the original filling creates a $NE$-chain with $u$. Therefore
+assume that neither the column or the row in which lies $u$ intersect $M$, thus $u$ lies strictly southwest of $M$.
+Consider the maximal rectangle $B$ contained in $S$ with $u$ for its southwest corner. Clearly the intersection of $M$ and $B$
+was empty before the transformation and it contains at least the 1 in the cell $u$ now. Let $z$ be the cell in the same column of $M$
+as $v$ which was nonempty before the transformation and let $w$ be the cell in the same row of $M$ as $v$ which was nonempty before the transformation.
+Then both $z$ and $w$ must lie outside of $B$ and therefore they form an occurence of $S^{forb}(132)$ together with $u$ in the original filling.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.8cm,y=0.8cm]
+\clip(0.84,0.73) rectangle (14.25,12.24);
+\draw (1,1)-- (5,1);
+\draw (5,1)-- (5,2);
+\draw (5,2)-- (8,2);
+\draw (8,2)-- (8,4);
+\draw (8,4)-- (11,4);
+\draw (11,4)-- (11,6);
+\draw (11,6)-- (13,6);
+\draw (13,6)-- (13,9);
+\draw (13,9)-- (14,9);
+\draw (14,9)-- (14,12);
+\draw (1,1)-- (1,4);
+\draw (1,4)-- (2,4);
+\draw (2,4)-- (2,8);
+\draw (2,8)-- (4,8);
+\draw (4,8)-- (4,11);
+\draw (4,11)-- (8,11);
+\draw (8,11)-- (8,12);
+\draw (8,12)-- (14,12);
+\draw [line width=1.6pt] (4,10)-- (10,10);
+\draw [line width=1.6pt] (10,10)-- (10,4);
+\draw [line width=1.6pt] (4,8)-- (4,4);
+\draw [line width=1.6pt] (4,4)-- (8,4);
+\draw [line width=1.6pt] (4,10)-- (4,8);
+\draw [line width=1.6pt] (8,4)-- (10,4);
+\draw [line width=1.6pt] (2,2)-- (8,2);
+\draw [line width=1.6pt] (8,2)-- (8,8);
+\draw [line width=1.6pt] (2,2)-- (2,8);
+\draw (3,5) node {$B$};
+\draw (6,6) node {\huge $\emptyset$};
+\draw [line width=1.6pt] (2,8)-- (8,8);
+\draw (6,8)--(6,9);
+\draw (6,9)--(7,9);
+\draw (7,9)--(7,8);
+\draw (7,8)--(6,8);
+\draw (6.5,8.5) node {$\times$};
+\draw (6.76,8.76) node {$z$};
+\draw (6,7)--(6,8);
+\draw (6,8)--(7,8);
+\draw (7,8)--(7,7);
+\draw (7,7)--(6,7);
+\draw (6.5,7.5) node {$\times$};
+\draw (6.76,7.76) node {$v$};
+\draw (8,7)--(8,8);
+\draw (8,8)--(9,8);
+\draw (9,8)--(9,7);
+\draw (9,7)--(8,7);
+\draw (8.5,7.5) node {$\times$};
+\draw (8.76,7.76) node{$w$};
+\draw (2,2)--(2,3);
+\draw (2,3)--(3,3);
+\draw (3,3)--(3,2);
+\draw (3,2)--(2,2);
+\draw (2.5,2.5) node {$\times$};
+\draw (2.76,2.76) node {$u$};
+\draw (9,9)--(9,10);
+\draw (9,10)--(10,10);
+\draw (10,10)--(10,9);
+\draw (10,9)--(9,9);
+\draw (9.5,9.5) node {$c_{i+1}$};
+\draw (9.11,4.71) node {$M$};
+\end{tikzpicture}
+
+\caption{An occurence of $S^{forb}(132)$ in the cells $u$, $w$ and $z$}
+\end{figure} 
+
+ 
+\item The condition (e) can be verified easily using the same approach as in the discussion of the map $f$.
+\end{enumerate}
+
+Overall we have shown that $f$ maps $\mathcal{G}^2_i(S)$ into $\mathcal{G}^2_{i+1}(S)$ and that $g$ maps $\mathcal{G}^2_{i+1}(S)$ into
+$\mathcal{G}^2_i(S)$. In addition, since the transformations are carefully constructed so that one performs the exact opposite of the
+other, we get that $fg = \text{id}$ and $gf = \text{id}$, which implies that $g = f^{-1}$ and $f$ is the bijection we were looking for.
+
+\end{proof}
+\begin{proof}[Proof of Theorem \ref{thm_2}]
+Let $N$ be the number of cells of $S$.
+From Lemma \ref{lemma_gi} we immediately get that there is a bijection between the fillings of $\mathcal{G}_1(S)$ and $\mathcal{G}_N(S)$.
+As discussed above, $\mathcal{G}_1(S)$ is exactly the set of fillings avoiding a $SE$-chain of length 2 and $\mathcal{G}_N(S)$
+is exactly the set of fillings avoiding $S^{forb}(132)$ and a $NE$-chain of length 2, which completes the proof. 
+\end{proof}

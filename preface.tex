@@ -1,0 +1,34 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+
+A permutation $\pi$ is said to be \emph{contained} in a permutation $\sigma$,
+if some rows and columns of the permutation matrix of $\sigma$ can be removed to obtain the permutation matrix of $\pi$,
+otherwise $\sigma$ \emph{avoids} $\pi$. A set of permutations closed under containment is called a \emph{permutation class},
+and it is a \emph{singleton class} if, in addition, it can be described as the set of all permutations avoiding a single permutation $\pi$.
+Such a singleton class is denoted by $\text{Av}(\pi)$.
+The study and enumeration of pattern-avoiding permutations and permutation classes has now been an active field for several decades.
+One of the important concepts studied in this field is \emph{Wilf-equivalence}. Two permutation classes are \emph{Wilf-equivalent},
+if for every positive integer $n$ they contain the same number of permutations of length $n$.
+
+The search for new Wilf-equivalent classes has led to the investigation of a stronger kind of equivalence. Consider a Ferrers diagram
+whose every cell is filled with a 0 or a 1 such that there is at most one 1 in every row and every column. Such a filling
+of the Ferrers diagram is called \emph{sparse} and it \emph{contains}
+a permutation $\sigma$, if some rows and columns of the Ferrers diagram can be removed to obtain the permutation matrix of $\sigma$,
+otherwise it \emph{avoids} $\sigma$.
+We then say that two singleton classes $\text{Av}(\pi)$ and $\text{Av}(\sigma)$ are \emph{shape-Wilf-equivalent} if for every
+Ferrers diagram the number of sparse fillings avoiding $\pi$ is the same as the number of sparse fillings avoiding $\sigma$. 
+The most notable example of shape-Wilf-equivalence was found by Backelin, West and Xin \cite{Backelin07}, who have
+shown that for any $k$, the classes $\text{Av}(12\cdots k)$ and $\text{Av}(k(k-1)\cdots21)$ are shape-Wilf-equvalent.
+Later, Krattenthaler \cite{Krattenthaler06} found a nice and simpler bijective proof of this result, and his work,
+in return, was further generalized by Rubey \cite{Rubey11} who extended the bijection to more general diagrams.
+
+In the present thesis, we prove two new results about 0-1-fillings of \emph{skew diagrams}, which are diagrams
+obtained as difference of two Ferrers diagrams one of which contains the other. The thesis consists of three chapters.
+In the first chapter, we introduce all of the necessary terminology and notation. In the second chapter,
+we define a subclass of skew diagrams, the \emph{simple skew diagrams}, and 
+make use of the approaches of Krattenthaler and Rubey to construct a bijection between sparse fillings
+of a given simple skew diagram avoiding $12\cdots k$ and sparse fillings avoiding $k\cdots21$. In the final
+chapter we generalise a result of Jelínek \cite{Jelinek08} and show that for every skew diagram,
+there at least as many general fillings avoiding $12$ as there are fillings avoiding $21$.
+

@@ -1,0 +1,454 @@
+\chapter{Preliminaries}
+
+\section{Polyominoes}
+
+A \emph{cell} is a unit square whose vertices lie on lattice points of the $\Z^2$ plane.
+We then define a \emph{polyomino} as a finite set of cells. When referring to \emph{coordinates} of a cell,
+we will use the $\Z^2$ coordinates of its bottom left corner.
+A polyomino is \emph{convex} if for any two of its cells in the same row or column the polyomino also contains every cell in between.
+Two columns of a polyomino are \emph{comparable} if the set of row coordinates of one column is contained in the set of row coordinates
+of the other. We say that a polyomino is \emph{intersection-free} if any two of its columns are comparable. Note that this is equivalent
+to having any two of its rows comparable. A \emph{moon polyomino} is a convex, intersection-free polyomino. A polyomino
+is \emph{top-justified} if the top ends of all of its columns are in the same row and it is \emph{left-justified}
+if the left ends of all of its rows are in the same column. Similarly we define a \emph{bottom-justified} or a
+\emph{right-justified} polyomino.
+A moon polyomino is a \emph{Ferrers diagram} if it is top-justified or bottom justified and in addition either left-justified or right-justified.
+
+\begin{figure}[h]
+\centering
+\subfloat[][non-convex] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(1.56,0.49) rectangle (5.37,4.25);
+\draw (2,4)-- (2,1);
+\draw (2,1)-- (5,1);
+\draw (5,1)-- (5,4);
+\draw (5,4)-- (4,4);
+\draw (4,4)-- (4,2);
+\draw (4,2)-- (3,2);
+\draw (3,2)-- (3,4);
+\draw (3,4)-- (2,4);
+\draw (2,3)-- (3,3);
+\draw (2,2)-- (3,2);
+\draw (4,2)-- (5,2);
+\draw (4,2)-- (4,1);
+\draw (3,2)-- (3,1);
+\draw (4,3)-- (5,3);
+\end{tikzpicture}
+}
+\subfloat[][convex, not \\ intersection-free] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(5.9,0.53) rectangle (9.1,4.25);
+\draw (6,3)-- (6,1);
+\draw (7,4)-- (7,1);
+\draw (8,4)-- (8,1);
+\draw (9,4)-- (9,2);
+\draw (9,2)-- (6,2);
+\draw (8,1)-- (6,1);
+\draw (6,3)-- (9,3);
+\draw (9,4)-- (7,4);
+\end{tikzpicture}
+}
+\subfloat[][moon polyomino] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(9.52,0.36) rectangle (13.5,4.21);
+\draw (10,3)-- (13,3);
+\draw (12,4)-- (12,1);
+\draw (11,4)-- (11,1);
+\draw (10,2)-- (13,2);
+\draw (13,2)-- (13,3);
+\draw (12,4)-- (11,4);
+\draw (10,3)-- (10,2);
+\draw (11,1)-- (12,1);
+\end{tikzpicture}
+}
+\subfloat[][bottom-justified moon polyomino] {
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(13.9,0.4) rectangle (17.56,4.25);
+\draw (14,1)-- (17,1);
+\draw (15,1)-- (15,4);
+\draw (16,1)-- (16,4);
+\draw (14,1)-- (14,3);
+\draw (14,3)-- (16,3);
+\draw (15,4)-- (16,4);
+\draw (14,2)-- (17,2);
+\draw (17,1)-- (17,2);
+\end{tikzpicture}
+}
+\caption{Examples of polyominoes}
+\label{figure_examples}
+\end{figure}
+
+
+A \emph{$NW$ Ferrers diagram} (standing for \emph{northwest}) is top-justified and left-justified.
+A \emph{$SE$ Ferrers diagram} (standing for \emph{southeast}) is bottom-justified and right-justified.
+We can represent both kinds of Ferrers diagrams by sequences of characters $R$ (meaning a step right) and $U$ (meaning step up),
+describing the right-up border or the up-right border of $NW$ Ferrers diagrams or $SE$ Ferrers diagrams respectively.
+For example, the $NW$ Ferrers diagram in Figure \ref{fig_nw_se}(a) is represented by the sequence 
+\textit{RRURURRURUU}
+and the $SE$ Ferrers diagram in Figure \ref{fig_nw_se}(b) is represented by the sequence 
+\textit{URUUURRURR}. We call the sequences of characters $R$ and $U$ the \emph{$R$-$U$ sequences} and if a Ferrers diagram $F$
+is represented by an $R$-$U$ sequence $w$, we say that $F$ \emph{is of type $w$}.
+
+\begin{figure}[h]
+\centering
+\subfloat[][$NW$ Ferrers diagram] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(1.6,0) rectangle (8.24,6.22);
+\draw (2,1)-- (2,6);
+\draw (2,6)-- (8,6);
+\draw (2,1)-- (4,1);
+\draw (4,1)-- (4,2);
+\draw (4,2)-- (5,2);
+\draw (5,2)-- (5,3);
+\draw (8,6)-- (8,4);
+\draw (8,4)-- (7,4);
+\draw (7,4)-- (7,3);
+\draw (7,3)-- (5,3);
+
+\draw (3,6)-- (3,1);
+\draw (4,6)-- (4,2);
+\draw (5,6)-- (5,3);
+\draw (6,6)-- (6,3);
+\draw (7,6)-- (7,4);
+\draw (8,5)-- (2,5);
+\draw (7,4)-- (2,4);
+\draw (5,3)-- (2,3);
+\draw (4,2)-- (2,2);
+
+\end{tikzpicture}
+}
+\subfloat[][$SE$ Ferrers diagram] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(10.66,0) rectangle (16.45,6.9);
+\draw (11,1)-- (16,1);
+\draw (16,1)-- (16,6);
+\draw (11,1)-- (11,2);
+\draw (11,2)-- (12,2);
+\draw (12,2)-- (12,5);
+\draw (12,5)-- (14,5);
+\draw (14,5)-- (14,6);
+\draw (14,6)-- (16,6);
+\draw (12,2)-- (16,2);
+\draw (12,3)-- (16,3);
+\draw (12,4)-- (16,4);
+\draw (14,5)-- (16,5);
+\draw (15,6)-- (15,1);
+\draw (12,2)-- (12,1);
+\draw (13,5)-- (13,1);
+\draw (14,5)-- (14,1);
+\end{tikzpicture}
+}
+\caption{Examples of Ferrers diagrams}
+\label{fig_nw_se}
+\end{figure}
+
+Given a convex polyomino $P$, we define its \emph{height} $h(P)$ as the number of its nonempty rows. 
+Similarly, we define its \emph{width} $w(P)$ as the number of nonempty columns of $P$.
+
+Sometimes we will need to speak about the boundary of a convex polyomino, considered as a closed convex subset of the plane. We 
+call the boundary of a convex polyomino $P$ the \emph{border} of $P$. If two adjacent sides of a cell of $\Z^2$ lie
+on the border of $P$, the corner of the cell in which the two sides meet is a \emph{turn}
+on the border. A line along the border between two adjacent turns of $M$ is a \emph{segment}. For example, the border
+of the polyomino in Figure \ref{figure_examples}(b) consists of 8 turns and 8 segments.
+
+\section{Partitions}
+A \emph{partition} of length $n$ is a finite weakly decreasing sequence of positive integers $\lambda = (\lambda_1, \lambda_2, \ldots, \lambda_n)$. 
+Each of the numbers $\lambda_i$ is called a \emph{part} of $\lambda$ and the \emph{size} of $\lambda$ is the sum of its parts.
+Such a partition $\lambda$ also represents a $NW$ Ferrers diagram with column heights $\lambda_1, \ldots, \lambda_n$.
+For example, the diagram in Figure \ref{fig_nw_se}(a) is represented by a partition $(5, 5, 4, 3, 3, 2)$. 
+A partition $\mu = (\mu_1, \ldots, \mu_m)$ is \emph{contained} in $\lambda = (\lambda_1, \ldots, \lambda_n)$ if $m \leq n$
+and $\mu_i \leq \lambda_i$ for $1 \leq i \leq m$.
+The \emph{union} of partitions $\mu = (\mu_1, \ldots, \mu_m)$ and $\lambda = (\lambda_1, \ldots, \lambda_n)$ is
+the partition $\nu = (\nu_1, \ldots, \nu_k)$ such that $k = \max(m, n)$ and $\nu_i = max(\mu_i, \lambda_i)$.
+Finally, the \emph{transpose} of a partition $\lambda = (\lambda_1, \ldots, \lambda_n)$ is the partition
+$\lambda^T = (\lambda^T_1, \ldots, \lambda^T_t)$ such that $t = \lambda_1$ and $\lambda^T_i$ is equal
+to the number of parts of $\lambda$ greater than or equal to $i$. Notice that transposing
+a partition is equivalent to reflecting the associated Ferrers diagram over the $y = x$ line.
+
+\section{Skew diagrams}
+A skew diagram is a $NW$ Ferrers diagram with a smaller $NW$ Ferrers diagram cut out of its north-west corner. This is represented
+by a pair of partitions $(\lambda, \mu)$ such that $\mu$ is contained in $\lambda$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-4.15,-1.14) rectangle (1.12,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw [dash pattern=on 2pt off 2pt] (-4,1)-- (-4,3);
+\draw [dash pattern=on 2pt off 2pt] (-4,3)-- (-2,3);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw [dash pattern=on 2pt off 2pt] (-3,2)-- (-3,3);
+\draw [dash pattern=on 2pt off 2pt] (-3,2)-- (-4,2);
+\draw (-3,1)-- (-3,-1);
+\end{tikzpicture}
+\caption{The skew diagram $((4,4,3,3,1),(2,1))$}
+\end{figure}
+
+Let $S$ be a skew diagram and let $C$ be one of its columns. We define the operation of \emph{deleting} the column $C$ from $S$
+as removing the cells of $C$ and shifting all cells of $S$ right of $C$ one cell to the left. Similarly we define
+the operation of deleting a row $R$ from $S$ as removing the cells of $R$ from $S$ and shifting all cells of $S$ below $R$
+one cell upward.
+A skew diagram $S$ is a \emph{subdiagram} of a skew diagram $T$ or is \emph{contained} in $T$ if $S$ can be created from $T$
+by deleting some rows and columns. If $S$ is not containted in $T$, we say that $T$ \emph{avoids} $S$. Note that
+both the class of skew diagrams and the class of Ferrers diagrams are closed under the operations of deleting a row or a column,
+i.e. deleting a row or a column from a skew diagram always results in a skew diagram and in addition, if the diagram
+is a Ferrers diagram, it remains a Ferrers diagram.
+
+\begin{figure}[h]
+\centering
+\subfloat[][]{
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-4.15,-1.14) rectangle (1.12,3.15);
+\draw (-4,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-2,2)-- (-3,2);
+\draw (-3,2)-- (-3,1);
+\draw (-3,1)-- (-4,1);
+\draw (-4,1)-- (-4,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-4,0);
+\draw (-3,1)-- (-3,-1);
+\draw [line width=1.6pt] (-3,-1) -- (-2,-1);
+\draw [line width=1.6pt] (-2,-1) -- (-2,2);
+\draw [line width=1.6pt] (-2,2) -- (-3,2);
+\draw [line width=1.6pt] (-3,2) -- (-3,-1);
+\end{tikzpicture}
+}
+\subfloat[][]{
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-4.15,-1.14) rectangle (1.12,3.15);
+\draw (-3,-1)-- (-2,-1);
+\draw (-2,-1)-- (-2,0);
+\draw (-2,0)-- (0,0);
+\draw (0,0)-- (0,2);
+\draw (0,2)-- (1,2);
+\draw (1,2)-- (1,3);
+\draw (1,3)-- (-2,3);
+\draw (-2,3)-- (-2,2);
+\draw (-3,1)-- (-3,1);
+\draw (-3,1)-- (-3,-1);
+\draw (-2,3)-- (-2,0);
+\draw (-1,3)-- (-1,0);
+\draw (0,3)-- (0,2);
+\draw (0,2)-- (-2,2);
+\draw (0,1)-- (-3,1);
+\draw (-2,0)-- (-3,0);
+\draw (-3,1)-- (-3,-1);
+\end{tikzpicture}
+}
+\caption{Deleting a column from a skew diagram}
+\label{figure_del_col}
+\end{figure}
+
+A skew diagram is clearly bounded by two paths leading from its lower left and to its upper right corner
+and consisting only of steps up and to the right. We shall call them the \emph{upper border}
+and the \emph{lower border} of the diagram.
+
+For convenience, we will only consider \emph{connected} skew diagrams, which satisfy the additional condition that their
+upper and lower borders only meet in the lower left and the upper right corner and nowhere in between. All of the presented 
+results about connected skew diagrams can be extended to general skew diagrams without any effort.
+
+\section{Fillings of polyominoes}
+
+The main theme of this thesis is filling cells of polyominoes with integers and then counting fillings having certain properties.
+A \emph{0-1-filling} of a polyomino is an assignment of either a 0 or a 1 to each cell of the polyomino.
+A \emph{sparse filling} is a 0-1-filling, such that there is at most one 1 in each row and in each column. 
+In figures, we will often represent 0's in such fillings by empty cells and 1's by crosses. In addition,
+if a subset of a polyomino contains only 0's, we shall say that it is \emph{empty}, otherwise it is \emph{nonempty}.
+
+\begin{figure}
+\centering
+\subfloat[][A sparse filling] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-0.21,-1.19) rectangle (6.12,5.2);
+\draw (1,4)-- (1,0);
+\draw (1,0)-- (5,0);
+\draw (5,0)-- (5,4);
+\draw (5,4)-- (1,4);
+\draw (2,0)-- (2,5);
+\draw (3,0)-- (3,5);
+\draw (4,0)-- (4,5);
+\draw (2,5)-- (5,5);
+\draw (5,5)-- (5,4);
+\draw (3,0)-- (3,-1);
+\draw (3,-1)-- (6,-1);
+\draw (6,-1)-- (6,2);
+\draw (6,2)-- (5,2);
+\draw (5,1)-- (0,1);
+\draw (5,2)-- (0,2);
+\draw (5,3)-- (0,3);
+\draw (0,1)-- (0,4);
+\draw (0,4)-- (1,4);
+\draw (4,0)-- (4,-1);
+\draw (5,0)-- (5,-1);
+\draw (5,0)-- (6,0);
+\draw (5,1)-- (6,1);
+\draw (0.5,3.5) node {$\times$};
+\draw (2.5,2.5) node {$\times$};
+\draw (4.5,1.5) node {$\times$};
+\draw (1.5,0.5) node {$\times$};
+\draw (3.5,4.5) node {$\times$};
+\draw (5.5,-0.5) node {$\times$};
+\end{tikzpicture}
+}
+\subfloat[][A non-sparse filling] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-0.21,-1.19) rectangle (6.12,5.2);
+\draw (1,4)-- (1,0);
+\draw (1,0)-- (5,0);
+\draw (5,0)-- (5,4);
+\draw (5,4)-- (1,4);
+\draw (2,0)-- (2,5);
+\draw (3,0)-- (3,5);
+\draw (4,0)-- (4,5);
+\draw (2,5)-- (5,5);
+\draw (5,5)-- (5,4);
+\draw (3,0)-- (3,-1);
+\draw (3,-1)-- (6,-1);
+\draw (6,-1)-- (6,2);
+\draw (6,2)-- (5,2);
+\draw (5,1)-- (0,1);
+\draw (5,2)-- (0,2);
+\draw (5,3)-- (0,3);
+\draw (0,1)-- (0,4);
+\draw (0,4)-- (1,4);
+\draw (4,0)-- (4,-1);
+\draw (5,0)-- (5,-1);
+\draw (5,0)-- (6,0);
+\draw (5,1)-- (6,1);
+\draw (1.5,0.5) node {$\times$};
+\draw (1.5,2.5) node {$\times$};
+\draw (2.5,2.5) node {$\times$};
+\draw (3.5,2.5) node {$\times$};
+\draw (3.5,3.5) node {$\times$};
+\draw (4.5,4.5) node {$\times$};
+\end{tikzpicture}
+}
+\caption{Examples of 0-1-fillings}
+\label{figure_fillings}
+\end{figure}
+
+Let $P$ be a polyomino filled with a 0-1-filling and let $c_1, c_2, \ldots, c_l$ be $l$ of its cells filled with a 1.
+These cells form a $NE$\emph{-chain (pronounced "northeast chain") of length} $l$ in $P$ if for $1 < i \leq l$ each $c_i$ is 
+strictly northeast of $c_{i-1}$ and the smallest rectangle containing all $l$
+cells is entirely contained in $P$. Similarly the cells form a $SE$\emph{-chain (pronounced "southeast chain") of length} $l$, if
+for $1 < i \leq l$ each $c_i$ is strictly southeast of $c_{i-1}$ and again the smallest rectangle containing all the cells is entirely
+contained in $P$. We then say that $P$ \emph{contains} a $NE$-chain (or $SE$-chain) of length $l$ if there is at least one 
+occurence of such a chain in $P$. Otherwise we say that $P$ \emph{avoids} a $NE$-chain (or $SE$-chain) of length $l$.
+For example, in Figure \ref{figure_chains}(a) the smallest rectangle containing the three nonzero entries are contained in the 
+polyomino, so the 1's do form a $SE$-chain of length 3. However, in Figure \ref{figure_chains}(b) the northwest corner
+of the smallest rectangle containing the four nonempty cells is not a part of the polyomino, so this is not a $NE$-chain of length 4.
+However both the lower three 1's and the upper three 1's form a $NE$-chain of length 3.
+
+\begin{figure}
+\centering
+\subfloat[][A $SE$-chain of length 3] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-0.21,-1.19) rectangle (6.12,5.2);
+\draw (1,4)-- (1,0);
+\draw (1,0)-- (5,0);
+\draw (5,0)-- (5,4);
+\draw (5,4)-- (1,4);
+\draw (2,0)-- (2,5);
+\draw (3,0)-- (3,5);
+\draw (4,0)-- (4,5);
+\draw (2,5)-- (5,5);
+\draw (5,5)-- (5,4);
+\draw (3,0)-- (3,-1);
+\draw (3,-1)-- (6,-1);
+\draw (6,-1)-- (6,2);
+\draw (6,2)-- (5,2);
+\draw (5,1)-- (0,1);
+\draw (5,2)-- (0,2);
+\draw (5,3)-- (0,3);
+\draw (0,1)-- (0,4);
+\draw (0,4)-- (1,4);
+\draw (4,0)-- (4,-1);
+\draw (5,0)-- (5,-1);
+\draw (5,0)-- (6,0);
+\draw (5,1)-- (6,1);
+\draw (0.5,3.5) node {$\times$};
+\draw (2.5,2.5) node {$\times$};
+\draw (4.5,1.5) node {$\times$};
+\end{tikzpicture}
+}
+\subfloat[][Not a $NE$-chain of length 4] {
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-0.21,-1.19) rectangle (6.12,5.2);
+\draw (1,4)-- (1,0);
+\draw (1,0)-- (5,0);
+\draw (5,0)-- (5,4);
+\draw (5,4)-- (1,4);
+\draw (2,0)-- (2,5);
+\draw (3,0)-- (3,5);
+\draw (4,0)-- (4,5);
+\draw (2,5)-- (5,5);
+\draw (5,5)-- (5,4);
+\draw (3,0)-- (3,-1);
+\draw (3,-1)-- (6,-1);
+\draw (6,-1)-- (6,2);
+\draw (6,2)-- (5,2);
+\draw (5,1)-- (0,1);
+\draw (5,2)-- (0,2);
+\draw (5,3)-- (0,3);
+\draw (0,1)-- (0,4);
+\draw (0,4)-- (1,4);
+\draw (4,0)-- (4,-1);
+\draw (5,0)-- (5,-1);
+\draw (5,0)-- (6,0);
+\draw (5,1)-- (6,1);
+\draw (1.5,0.5) node {$\times$};
+\draw (2.5,2.5) node {$\times$};
+\draw (3.5,3.5) node {$\times$};
+\draw (4.5,4.5) node {$\times$};
+\end{tikzpicture}
+}
+\caption{Examples of chains in a polyomino with a 0-1-filling}
+\label{figure_chains}
+\end{figure}
+
+In the following chapter we deal with sparse fillings of skew diagrams avoiding long $NE$-chains and $SE$-chains. To describe
+the sets of fillings in question easily, we will use the notation introduced by Rubey \cite{Rubey11}.
+
+\begin{defn}[{\cite[Definition 5.2]{Rubey11}}]\label{def_rubey}
+Let $P$ be a moon polyomino or a connected skew diagram, 
+$l$ a positive integer and $\bm{r}$, $\bm{c}$ sequences of 0's and 1's of lengths $h(P)$ and $w(P)$ respectively.
+Then $\F^{NE}(P, l, \bm{r}, \bm{c})$ is the set of all sparse fillings of $P$ such that
+\begin{itemize}
+\item there is a 1 in the $i$-th row of $P$ if and only if $r_i = 1$,
+\item there is a 1 in the $i$-th column of $P$ if and only if $c_i = 1$,
+\item the length of the longest $NE$-chain in the filling is equal to $l$.
+\end{itemize}
+\end{defn}
+
+Similarly we define $\F^{SE}(P, l, \bm{r}, \bm{c})$ as the set of all sparse fillings of $P$ with the length of the longest $SE$-chain
+equal to $l$ and having 1's exactly in the rows and columns prescribed by $\bm{r}$ and $\bm{c}$. Note that since we are dealing with sparse fillings,
+the number of nonempty rows and columns prescribed by $\bm{r}$ and $\bm{c}$ must be the same for any fillings to exist.
+

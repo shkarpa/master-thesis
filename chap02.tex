@@ -1,0 +1,849 @@
+\chapter{A bijection between fillings of special skew diagrams}
+
+\section{Main result}
+
+Let $S^{forb}$ be the forbidden skew diagram $((3,3,2),(1))$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(5.9,0.53) rectangle (9.1,4.25);
+\draw (6,3)-- (6,1);
+\draw (7,4)-- (7,1);
+\draw (8,4)-- (8,1);
+\draw (9,4)-- (9,2);
+\draw (9,2)-- (6,2);
+\draw (8,1)-- (6,1);
+\draw (6,3)-- (9,3);
+\draw (9,4)-- (7,4);
+\end{tikzpicture}
+\caption{$S^{forb}$}
+\end{figure}
+
+\begin{lemma} \label{lemma_forb_rec}
+A skew diagram $S$ avoids $S^{forb}$ if and only if for every cell $c$ of $S$ at least one
+of the following conditions is satisfied:
+\begin{itemize}
+\item
+either the set
+of cells of $S$ to the left and above $c$ (including the cells in the same row or column as $c$)
+forms a rectangle, or 
+\item the set of cells of $S$ to the right and below of $c$ (including the cells in the same row or column
+as $c$) forms a rectangle.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+If $S$ does contain $S^{forb}$, then the cell that represents the middle cell of an occurence of $S^{forb}$ violates both conditions.
+On the other hand, if a cell $c$ of $S$ violates both conditions, we find an occurence of $S^{forb}$ in $S$ with this cell as its middle cell.
+Let $A$ be the maximal rectangle contained in $S$ which has $c$ as its northeast corner and let $B$ be the maximal rectangle contained
+in $S$ which has $c$ as its southwest corner. Then the 7 cells in the corners of these two rectangles form an occurence of $S^{forb}$.
+\end{proof}
+
+We can now formulate the main result of this chapter.
+
+\begin{thm} \label{thm_main}
+Let $S$ be a skew diagram avoiding $S^{forb}$, let $l \geq 1$ be an integer and let $\bm{r}$ and $\bm{c}$ be sequences of 0's
+and 1's of lengths $w(S)$ and $h(S)$ respectively. Then there is a bijection between 
+the sets $\F^{NE}(S, l, \bm{r}, \bm{c})$ and $\F^{SE}(S, l, \bm{r}, \bm{c})$.
+\end{thm}
+
+To prove this theorem, we will utilize other known bijection theorems on Ferrers diagrams and moon polyominoes
+described in sections \ref{sec3} and \ref{sec4}, but first,
+we will prove a useful equivalent characterization of skew diagrams avoiding $S^{forb}$.
+
+\section{Simple skew diagrams}
+
+Let $S$ be a skew diagram and let a vertical line leading between two adjacent columns of $S$ divide it into two skew diagrams $S_1$ and
+$S_2$. Then we say that $S$ is a \emph{vertical concatenation} of $S_1$ and $S_2$ and we write $S = S_1 |^v S_2$. Similarly we define
+\emph{horizontal concatenation} and write $T = T_1 |^h T_2$. Note that there are mutiple ways how to concatenate two skew diagrams.
+
+We say that $S$ is a \emph{simple skew diagram} if it can be written as 
+
+$$S = F_1 |^v G_1 |^h F_2 |^v \cdots |^h F_n |^v G_n,$$
+
+where all $F_i$ are $NW$ Ferrers diagrams, all $G_i$ are $SE$ Ferrers diagrams and all $F_i$ and $G_i$ are nonempty with the possible
+exception of $G_n$. We call this representation of $S$ the \emph{simple representation}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(-4.25,-4.33) rectangle (6.19,4.2);
+\draw (-4,-4)-- (-4,0);
+\draw (-4,0)-- (0,0);
+\draw (0,0)-- (0,-2);
+\draw (0,-2)-- (-1,-2);
+\draw (-1,-2)-- (-1,-3);
+\draw (-1,-3)-- (-2,-3);
+\draw (-2,-3)-- (-2,-4);
+\draw (-2,-4)-- (-4,-4);
+\draw (0,0)-- (0,1);
+\draw (0,1)-- (2,1);
+\draw (2,1)-- (2,2);
+\draw (0,-1)-- (4,-1);
+\draw (2,2)-- (4,2);
+\draw (4,2)-- (4,-1);
+\draw (-2.8,-1.35) node[anchor=north west] {$F_1$};
+\draw (1.64,0.42) node[anchor=north west] {$G_1$};
+\draw (2,2)-- (5,2);
+\draw (3,2)-- (3,4);
+\draw (3,4)-- (6,4);
+\draw (6,4)-- (6,3);
+\draw (6,3)-- (5,3);
+\draw (5,3)-- (5,2);
+\draw (3.5,3.35) node[anchor=north west] {$F_2$};
+\end{tikzpicture}
+\caption{A simple skew skew diagram}
+\end{figure}
+
+The key lemma follows.
+
+\begin{lemma} \label{lemma_key}
+A skew diagram is simple if and only if it does not contain $S^{forb}$.
+\end{lemma}
+\begin{proof}
+In a simple skew diagram $S$ every cell is in either a $NW$ Ferrers subdiagram or a $SE$ Ferrers subdiagram and thus satisfies
+at least one of the conditions
+of Lemma \ref{lemma_forb_rec}. Therefore $S$ avoids $S^{forb}$. 
+
+We now prove that every skew diagram avoiding $S^{forb}$ is simple by induction on the number of turns on the upper border of a skew diagram. 
+If there is only one turn on the upper border of a skew diagram, then it is necessarily a $NW$ Ferrers diagram and there is nothing to prove.
+Let $S$ be a skew diagram whose upper border has at least two turns.
+
+Let $u_1$ and $r_1$ be the first two segments of the upper border of $S$, starting from the lower left corner, with $u_1$ going up
+and $r_1$ going to the right. Together with the corresponding part of the lower border they bound a $NW$ Ferrers diagram
+$F$ which can be separated by a vertical line $v$ from the rest of $S$, as we can see in Figure \ref{figure_key_lemma}.
+
+Next, consider the cell $c$ attached to the upper right corner of $F$ as indicated in Figure \ref{figure_key_lemma}.
+Since $S$ avoids $S^{forb}$ and the upper right corner of $c$ is a turn of the border of $S$, we get by Lemma \ref{lemma_forb_rec}
+that the part of $S$ to the left and below of $c$ must form a rectangle, bounded from below by the lower border segment $r_2$
+and from the right by the lower border segment $u_2$. These two segments of the lower border, together with
+the corresponding part of the upper border of $S$ bound a $SE$ Ferrers diagram $G$, which can again be separated from the 
+rest of $S$ by a horizontal line $h$.
+
+Finally, let $S'$ be the part of $S$ above the line $h$. Then $S'$ is a skew diagram which definitely has fewer turns
+on its upper border than $S$, so the induction applies and we get that $S'$ can be written as
+
+$$S' = F_1 |^v G_1 |^h F_2 |^v \cdots |^h F_n |^v G_n,$$
+
+where $F_1, \ldots, F_n$ are nonempty $NW$ Ferrers diagrams and $G_1, \ldots, G_n$ are $SE$ Ferrers diagrams. Together
+with the constructed diagrams $F$ and $G$ we get that
+
+$$S = F |^v G |^h F_1 |^v G_1 |^h F_2 |^v \cdots |^h F_n |^v G_n,$$
+
+and thus $S$ is simple.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(1.57,2) rectangle (15.59,10.27);
+\fill[fill=black,fill opacity=0.1] (7,7) -- (7,6.68) -- (7.32,6.68) -- (7.32,7) -- cycle;
+\draw (3,3)-- (3,7);
+\draw (3,7)-- (7,7);
+\draw (7,10)-- (7,1);
+\draw [shift={(3.34,6.88)},dash pattern=on 2pt off 2pt]  plot[domain=4.62:5.93,variable=\t]({1*3.89*cos(\t r)+0*3.89*sin(\t r)},{0*3.89*cos(\t r)+1*3.89*sin(\t r)});
+\draw (7,6)-- (10,6);
+\draw (10,6)-- (10,9);
+\draw (4,9)-- (15,9);
+\draw [shift={(9.6,6.48)},dash pattern=on 2pt off 2pt]  plot[domain=1.88:2.94,variable=\t]({1*2.65*cos(\t r)+0*2.65*sin(\t r)},{0*2.65*cos(\t r)+1*2.65*sin(\t r)});
+\draw (7,7)-- (7,6.68);
+\draw (7,6.68)-- (7.32,6.68);
+\draw (7.32,6.68)-- (7.32,7);
+\draw (7.32,7)-- (7,7);
+\begin{scriptsize}
+\draw[color=black] (2.75,5.11) node {\normalsize $u_1$};
+\draw[color=black] (4.85,7.29) node {\normalsize $r_1$};
+\draw[color=black] (7.14,4.38) node {\normalsize $v$};
+\draw[color=black] (8.56,5.86) node {\normalsize $r_2$};
+\draw[color=black] (10.19,7.62) node {\normalsize $u_2$};
+\draw[color=black] (10.8,9.23) node {\normalsize $h$};
+\draw[color=black] (7.74,6.72) node {\normalsize $c$};
+\draw[color=black] (4.8,5.2) node {\large $F$};
+\draw[color=black] (8.5,7.5) node {\large $G$};
+\end{scriptsize}
+\end{tikzpicture}
+\caption{}
+\label{figure_key_lemma}
+\end{figure}
+\end{proof}
+
+\section{The bijection on Ferrers diagrams} \label{sec3}
+Krattenthaler \cite{Krattenthaler06} proved Theorem \ref{thm_main} for the special case of Ferrers diagrams using the growth diagram
+construction developed by Britz and Fomin \cite{Fomin01}. We briefly introduce growth diagrams
+and reformulate the results of this approach in our setting. For convenience, we will describe the construction for $NW$
+Ferrers diagrams only, however, the modification for $SE$ diagrams is obvious and we shall use it without stating it properly.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(0,0) rectangle (3,3);
+\draw (1,1)--(1,2);
+\draw (1,2)--(2,2);
+\draw (2,2)--(2,1);
+\draw (2,1)--(1,1);
+\draw (0.8, 0.8) node {$\nu$};
+\draw (0.8, 2.2) node {$\lambda$};
+\draw (2.2, 2.2) node {$\mu$};
+\draw (2.2, 0.8) node {$\rho$};
+\end{tikzpicture}
+\caption{A cell of a growth diagram}
+\label{figure_growth_cell}
+\end{figure}
+
+Let $F$ be a Ferrers diagram filled with a sparse filling. 
+We will inductively label every corner of every cell of $F$ by a partition, obtaining a \emph{growth diagram}.
+We start by labeling the corners on the left and upper borders by the empty partition $\emptyset$. If a cell
+already has all corners except the lower-right corner labeled by partitions $\lambda$, $\mu$, and $\nu$ as in Figure \ref{figure_growth_cell},
+we construct the remaining partition $\rho$ by the following \emph{forward local} rules:
+\begin{itemize}
+\item [(F1)] If the cell does not contain a 1 and $\lambda = \mu = \nu$, then $\rho = \lambda$.
+\item [(F2)] If the cell does not contain a 1 and $\mu \neq \nu$, then $\rho = \mu \cup \nu$.
+\item [(F3)] If the cell does not contain a 1, $\lambda \subsetneq \mu = \nu$ and $\lambda$ and $\mu$ differ in their $i$-th part,
+then we obtain $\rho$ by increasing the $i+1$-th part of $\mu$ by 1.
+\item [(F4)] If the cell contains a 1, then necessarily $\lambda = \nu = \mu$ and we obtain $\rho$ by increasing the first
+part of $\lambda$ by 1. 
+\end{itemize}
+
+Note that the equality of partitions in (F4) is implied by the fact that there is no 1 in the row of cells to the left or 
+in the column of cells above the considered cell.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(0,0) rectangle (6,6);
+
+\draw (1,1)--(1,5);
+\draw (2,1)--(2,5);
+\draw (3,1)--(3,5);
+\draw (4,2)--(4,5);
+\draw (5,3)--(5,5);
+
+
+\draw (1,1)--(3,1);
+\draw (1,2)--(4,2);
+\draw (1,3)--(5,3);
+\draw (1,4)--(5,4);
+\draw (1,5)--(5,5);
+
+\draw (1.5, 3.5) node {\large $\times$};
+\draw (2.5, 2.5) node {\large $\times$};
+\draw (3.5, 4.5) node {\large $\times$};
+
+\draw (1.2, 1.2) node {\footnotesize $\emptyset$};
+\draw (1.2, 2.2) node {\footnotesize $\emptyset$};
+\draw (1.2, 3.2) node {\footnotesize $\emptyset$};
+\draw (1.2, 4.2) node {\footnotesize $\emptyset$};
+\draw (1.2, 5.2) node {\footnotesize $\emptyset$};
+\draw (2.2, 1.2) node {\footnotesize $1$};
+\draw (2.2, 2.2) node {\footnotesize $1$};
+\draw (2.2, 3.2) node {\footnotesize $1$};
+\draw (2.2, 4.2) node {\footnotesize $\emptyset$};
+\draw (2.2, 5.2) node {\footnotesize $\emptyset$};
+\draw (3.2, 1.2) node {\footnotesize $2$};
+\draw (3.2, 2.2) node {\footnotesize $2$};
+\draw (3.2, 3.2) node {\footnotesize $1$};
+\draw (3.2, 4.2) node {\footnotesize $\emptyset$};
+\draw (3.2, 5.2) node {\footnotesize $\emptyset$};
+\draw (4.2, 2.2) node {\footnotesize $21$};
+\draw (4.2, 3.2) node {\footnotesize $11$};
+\draw (4.2, 4.2) node {\footnotesize $1$};
+\draw (4.2, 5.2) node {\footnotesize $\emptyset$};
+\draw (5.2, 3.2) node {\footnotesize $11$};
+\draw (5.2, 4.2) node {\footnotesize $1$};
+\draw (5.2, 5.2) node {\footnotesize $\emptyset$};
+
+
+
+\end{tikzpicture}
+\caption{An example of a growth diagram}
+\label{figure_growth_diagram}
+\end{figure}
+
+
+Let $w=w_1w_2\cdots w_k$ be an $R$-$U$ sequence. 
+An \emph{oscillating tableau of type $w$ and shape $\emptyset/\emptyset$} 
+is a sequence of partitions $(\lambda^0, \lambda^1, \ldots, \lambda^k)$ with the following properties:
+\begin{itemize}
+\item $\lambda^0 = \lambda^k = \emptyset$
+\item For $1 \leq i \leq k$, the sizes of $\lambda^{i-1}$ and $\lambda^i$ differ by at most 1.
+\item If $w_i = R$, then $\lambda^{i-1} \subseteq \lambda^i$.
+\item If $w_i = U$, then $\lambda^{i-1} \supseteq \lambda^i$.
+\end{itemize}
+
+Remarkably, both the filling and the entire growth diagram of a Ferrers diagram of type $w$ can be reconstructed from
+the sequence of partitions labeling the corners of its south-east border, which clearly is an oscillating tableau
+of type $w$ and shape $\emptyset/\emptyset$. For more details we refer the reader to \cite[Section 2]{Krattenthaler06}.
+The main consequence of this construction is the following theorem.
+
+\begin{thm}[{\cite[Theorem 1]{Krattenthaler06}}] \label{thm_krat_1}
+Let $F$ be a $NW$ Ferrers diagram of type $w = w_1w_2\ldots w_k$. The mapping, which to each sparse filling of $F$
+assigns the oscillating tableau $(\emptyset = \lambda^0, \lambda^1, \ldots, \lambda^k = \emptyset)$
+constructed as shown above, is a bijection between the set of all sparse fillings of $F$
+and the set of all oscillating tableaux of type $w$ and shape $\emptyset/\emptyset$. In addition, this mapping has the following properties:
+\begin{itemize}
+\item $\lambda^{i-1} \subsetneq \lambda^i$ if and only if there is a $1$ in the column above the corners labeled by $\lambda^{i-1}$
+and $\lambda^{i}$.
+\item $\lambda^{i} \subsetneq \lambda^{i-1}$ if and only if there is a $1$ in the row to the left of the corners labeled by $\lambda^{i-1}$
+and $\lambda^{i}$.
+\end{itemize}
+\end{thm}
+
+For example, the filling of the Ferrers diagram in Figure \ref{figure_growth_diagram} is mapped to the oscillating tableau
+$(\emptyset, 1, 2, 2, 21, 11, 11, 1, \emptyset)$. 
+
+The very useful fact about growth diagrams 
+is that the lengths of both longest $NE$-chains and $SE$-chains in a Ferrers
+diagram can be deduced from partitions labeling the corners.
+
+\begin{thm}[{\cite[Theorem 2]{Krattenthaler06}}] \label{thm_greene}
+Let $F$ be a Ferrers diagram with a sparse filling and a growth diagram constructed accordingly and let $\lambda = (\lambda_1, \ldots, \lambda_k)$
+be a partition labeling the southwest corner of a cell $c$. 
+Let $R$ be the maximal rectangle contained in $F$ with the cell $c$ in its southwest corner.
+Then the longest $NE$-chain contained in $R$ has length $k$ and the longest $SE$-chain contained in $R$ has length $\lambda_1$.
+\end{thm}
+
+Using growth diagrams and the theorems above it is now easy to prove Theorem \ref{thm_main} for Ferrers diagrams.
+
+\begin{thm}[{\cite[Theorem 3]{Krattenthaler06}}] \label{thm_krat_3}
+Let $F$ be a Ferrers diagram and $l \geq 1$ an integer. Let $\bm{r}$ and $\bm{c}$ be sequences of 0's and 1's
+of length $w(F)$ and $h(F)$ respectively. 
+Then there is a bijection between the sets $\F^{NE}(F, l, \bm{r}, \bm{c})$ and $\F^{SE}(F, l, \bm{r}, \bm{c})$.
+\end{thm}
+\begin{proof}
+For given sequences $\bm{r}$ and $\bm{c}$ let $F'$ be the diagram obtained from $F$ by deleting the rows
+with a 0 entry in $\bm{r}$ and columns with a 0 entry in $\bm{c}$. Since the deleted rows and columns
+are always empty in the considered fillings, it is enough to construct a bijection
+between the sets $\F^{NE}(F',l,\bm{1},\bm{1})$ and $\F^{SE}(F',l,\bm{1},\bm{1})$ where $\bm{1}$ is a sequence of only 1's
+and this bijection is trivially extended to the sets in question.
+
+Choose a filling of $F'$ from $\F^{NE}(F',l,\bm{1},\bm{1})$. The Theorem \ref{thm_krat_1} assigns to this filling
+an oscillating tableau $(\emptyset = \lambda^0, \lambda^1, \ldots, \lambda^k = \emptyset)$ and by Theorem \ref{thm_greene}
+every partition $\lambda^i$ has at most $l$ parts with equality occuring at least once. Now consider
+the oscillating tableau $(\emptyset = (\lambda^0)^T, (\lambda^1)^T, \ldots, (\lambda^k)^T = \emptyset)$
+obtained by transposing every partition of the original tableau. We use the Theorem \ref{thm_krat_1} again
+to assign a sparse filling of $F'$ to the transposed tableau. Since the transposition does not change the size
+of a partition, it is true that $(\lambda^{i-1})^T$ and $(\lambda^{i})^T$ differ by 1 in size for each $1 \leq i \leq k$
+and therefore the obtained filling of $F'$ contains a 1 in each row and each column. In addition, each $(\lambda^i)^T$
+satisfies $(\lambda^i)^T_1 \leq l$ with equality occuring at least once and so by Theorem \ref{thm_greene} the
+length of the longest $SE$-chain in $F'$ is equal to $l$. Therefore, the obtained filling is in $\F^{SE}(F', l, \bm{1}, \bm{1})$.
+\end{proof}
+
+\section{A bijection on moon polyominoes} \label{sec4}
+
+In his work, Rubey \cite{Rubey11} proves more general bijective results about fillings of moon polyominoes. In particular,
+he shows that permuting the columns of a moon polyomino in any way such that it remains a moon polyomino does not change
+the number of 0-1 fillings having a fixed length of the longest $NE$-chain and prescribed number of 1's in each row.
+Here we formulate a part of his results which will be useful in our efforts. 
+
+Given a finite sequence $s = (s_1, s_2, \ldots, s_n)$ and a permutation $\sigma$ of length $n$,
+we denote by $\sigma s$ the sequence $(s_{\sigma(1)}, s_{\sigma(2)}, \ldots, s_{\sigma(n)})$. In addition,
+given a moon polyomino $M$ and a permutation $\pi$ of length $w(M)$, we denote by $\sigma M$ the polyomino created by
+permuting the columns of $M$ according to $\pi$. We will also need a stronger version of Definition \ref{def_rubey}.
+
+\begin{defn}[{\cite[Definition 5.2]{Rubey11}}]\label{def_strong_rubey}
+Let $M$ be a moon polyomino, $\bm{r}$, $\bm{c}$ sequences of 0's and 1's of lengths $h(M)$ and $w(M)$ respectively
+and $\Lambda$ a mapping which assigns to every maximal rectangle $R$ in $M$ a positive integer $\Lambda(R)$.
+Then $\F^{NE}(M, \Lambda, \bm{r}, \bm{c})$ is the set of all sparse fillings of $P$ such that
+\begin{itemize}
+\item there is a 1 in the $i$-th row of $P$ if and only if $r_i = 1$,
+\item there is a 1 in the $i$-th column of $P$ if and only if $c_i = 1$,
+\item for every maximal rectangle $R$ the length of the longest $NE$-chain in the filling of $R$ is equal to $\Lambda(R)$.
+\end{itemize}
+\end{defn}
+
+Note that in a moon polyomino, every maximal rectangle is uniquely determined by its height and width. 
+Indeed, consider two maximal rectangles of the same height in a moon polyomino $M$. Since the columns of the two rectangles
+are comparable, they must in fact span the same rows, and since $M$ is convex, they must be contained in each other and thus
+be identical.
+
+\begin{thm}[{\cite[Theorem 5.3]{Rubey11}}]\label{thm_rubey}
+Let $M$ be a moon polyomino and $R$ be a maximal rectangle in $M$ such that the column of $M$ containing 
+the leftmost column $C$ of $R$ has the same height as $C$. Let $\sigma$ be the permutation of columns of $M$
+which moves the column $C$ to the right end of $R$ and shifts the other columns intersecting $R$ one spot to the left.
+Then the sets of maximal rectangles of $M$ and $\sigma M$ coincide and 
+for any $\Lambda$, $\bm{r}$ and $\bm{c}$ there is a bijective map which maps every filling in $\F^{NE}(M, \Lambda, \bm{r}, \bm{c})$ to a 
+filling in $\F^{NE}(\sigma M, \Lambda, \bm{r}, \bm{\sigma c})$.
+\end{thm}
+
+\begin{figure}
+\centering
+\subfloat[][$M$]{
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(0.86,1.79) rectangle (9.18,9.16);
+\draw (3,8)-- (3,4);
+\draw (3,4)-- (8,4);
+\draw (8,4)-- (8,8);
+\draw (8,8)-- (3,8);
+\draw (4,8)-- (4,4);
+\draw (5,8)-- (5,4);
+\draw (6,8)-- (6,4);
+\draw (7,8)-- (7,4);
+\draw (4,7)-- (8,7);
+\draw (4,6)-- (8,6);
+\draw (4,5)-- (8,5);
+\draw (3,7)-- (1,7);
+\draw (1,7)-- (1,6);
+\draw (1,6)-- (3,6);
+\draw (2,7)-- (2,4);
+\draw (2,4)-- (3,4);
+\draw (2,5)-- (3,5);
+\draw (4,4)-- (4,3);
+\draw (4,3)-- (8,3);
+\draw (8,3)-- (8,4);
+\draw (7,3)-- (7,2);
+\draw (7,2)-- (4,2);
+\draw (4,2)-- (4,3);
+\draw (5,8)-- (5,9);
+\draw (5,9)-- (7,9);
+\draw (7,9)-- (7,8);
+\draw (6,8)-- (6,9);
+\draw (8,7)-- (9,7);
+\draw (9,7)-- (9,4);
+\draw (9,4)-- (8,4);
+\draw (5,4)-- (5,2);
+\draw (6,4)-- (6,2);
+\draw (8,6)-- (9,6);
+\draw (8,5)-- (9,5);
+\draw (7,4)-- (7,3);
+\draw (3.5, 6) node {$C$};
+\draw [line width=1.6pt] (3,4) -- (3,8);
+\draw [line width=1.6pt] (8,8) -- (3,8);
+\draw [line width=1.6pt] (8,8) -- (8,4);
+\draw [line width=1.6pt] (3,4) -- (8,4);
+\end{tikzpicture}
+}
+\subfloat[][$\sigma M$]{
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.75cm,y=0.75cm]
+\clip(2.74,0.77) rectangle (11.15,8.17);
+\draw (5,7)-- (5,3);
+\draw (5,3)-- (10,3);
+\draw (10,3)-- (10,7);
+\draw (10,7)-- (5,7);
+\draw (6,7)-- (6,3);
+\draw (7,7)-- (7,3);
+\draw (8,7)-- (8,3);
+\draw (9,7)-- (9,3);
+\draw (5,6)-- (3,6);
+\draw (3,6)-- (3,5);
+\draw (3,5)-- (5,5);
+\draw (4,6)-- (4,3);
+\draw (4,3)-- (5,3);
+\draw (4,4)-- (5,4);
+\draw (10,6)-- (11,6);
+\draw (11,6)-- (11,3);
+\draw (11,3)-- (10,3);
+\draw (10,5)-- (11,5);
+\draw (10,4)-- (11,4);
+\draw (5,6)-- (9,6);
+\draw (5,5)-- (9,5);
+\draw (5,4)-- (9,4);
+\draw (6,7)-- (6,8);
+\draw (6,8)-- (8,8);
+\draw (8,8)-- (8,7);
+\draw (7,8)-- (7,7);
+\draw (5,3)-- (5,1);
+\draw (5,1)-- (8,1);
+\draw (8,1)-- (8,3);
+\draw (5,2)-- (9,2);
+\draw (9,2)-- (9,3);
+\draw (7,1)-- (7,3);
+\draw (6,3)-- (6,1);
+\draw (9.5, 5) node {$C$};
+\draw [line width=1.6pt] (5,3) -- (10,3);
+\draw [line width=1.6pt] (10,3) -- (10,7);
+\draw [line width=1.6pt] (10,7) -- (5,7);
+\draw [line width=1.6pt] (5,7) -- (5,3);
+\end{tikzpicture}
+}
+\caption{The operation described by Theorem \ref{thm_rubey}}
+\end{figure}
+Of course, since the mapping described by the theorem is bijective, the inverse mapping is also a bijection and therefore
+we may transform moon polyominoes by moving the rightmost column of a maximal rectangle instead of the leftmost.
+Furthermore, due to symmetry we can also use this result for moving rows instead of columns.
+
+We follow up by using the theorem above to prove a bijection between sparse fillings of Ferrers diagrams which satisfy
+two different sets of additional constraints along with having the length of the longest $NE$-chain equal to $l \geq 1$.
+Consider a $NW$ Ferrers diagram $F$ with at least $n$ longest columns and at least $m$ longest rows and let $A$
+be the rectangle consisting of the $n$ leftmost columns of $F$ and let $B$ be the rectangle consisting of top $m$ rows of $F$.
+Let $\bm{a} = (a_1, a_2, \ldots, a_n)$ and $\bm{b} = (b_1, b_2, \ldots, b_m)$ be two weakly increasing sequences of nonnegative integers satisfying
+$a_n \leq l$ and $b_m \leq l$. Given any sequences $\bm{r}$ and $\bm{c}$ as in Definition \ref{def_rubey}, we define the following
+sets of sparse fillings of $F$:
+\begin{itemize}
+\item $\F^{NE}_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$ is the set of all fillings from
+$\F^{NE}(M, l, \bm{r}, \bm{c})$ satisfying for every $1 \leq i \leq n$ that the length of the longest $NE$-chain inside the
+rectangle consisting of $i$ \emph{rightmost} columns of $A$ is equal to $a_i$ and for every $1 \leq j \leq m$ and the length of the longest $NE$-chain 
+inside the rectangle consisting of $j$ \emph{bottom} rows of $B$ is equal to $b_j$,
+
+\item $\F^{NE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$ is the set of all fillings from
+$\F^{NE}(M, l, \bm{r}, \bm{c})$ satisfying for every $1 \leq i \leq n$ that the length of the longest $NE$-chain inside
+the rectangle consisting of $i$ \emph{leftmost} columns of $A$ is equal to $a_i$ and for every $1 \leq j \leq m$ the length of the longest $NE$-chain 
+inside the rectangle consisting of $j$ \emph{top} rows of $B$ is equal to $b_j$.
+\end{itemize}
+
+Similarly we define the sets $\F^{SE}_{in}(F,l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$ and $\F^{SE}_{out}(F,l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$
+with the constraints imposed the same way as above but on lengths of $SE$-chains instead of $NE$-chains.
+We now show that the two described sets of fillings are actually of the same size.
+
+\begin{lemma} \label{lemma_constraints}
+Let $F$ be a $NW$ Ferrers diagram with the sequences $\bm{a}$ and $\bm{b}$ of constraints on fillings as described above. Then
+there is a bijection between the sets $\F^{NE}_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$ and $\F^{NE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$.
+\end{lemma}
+
+\begin{proof}
+
+We start by modifying the diagram $F$ by adding some new rows and columns, adjusting $\bm{r}$ and $\bm{c}$ appropriately by assigning
+0's to the new rows and columns, which will therefore always remain empty. The modification is as follows:
+\begin{itemize}
+\item for $i$ iterating from $n$ to $1$, attach a new row of length $i$ below the $i$ rightmost columns of $A$,
+\item for $j$ iterating from $m$ to $1$, attach a new column of length $j$ to the right of the bottom $j$ rows of $B$.
+\end{itemize}
+As a result of this modification we obtain a moon polyomino $M_1$ (see Figure \ref{figure_M1}) and sequences $\bm{r^1}$ and $\bm{c^1}$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.9cm,y=0.9cm]
+\clip(-4.17,-6.58) rectangle (10.6,6.3);
+\draw [line width=1.6pt] (-4,6)-- (-4,-3);
+\draw (-4,-3)-- (0,-3);
+\draw [line width=1.6pt] (-4,6)-- (7,6);
+\draw (7,6)-- (7,2);
+\draw (7,2)-- (5,2);
+\draw (5,2)-- (5,1);
+\draw (5,1)-- (4,1);
+\draw (4,1)-- (4,-1);
+\draw (4,-1)-- (1,-1);
+\draw (1,-1)-- (1,-2);
+\draw (1,-2)-- (0,-2);
+\draw (0,-2)-- (0,-3);
+\draw [line width=1.6pt] (-0.5,-3)-- (-0.5,6);
+\draw [line width=1.6pt] (7,2.5)-- (-4,2.5);
+\draw [line width=1.6pt] (-4,-3)-- (-0.5,-3);
+\draw [line width=1.6pt] (7,2.5)-- (7,6);
+\draw (-2.59,4.64) node[anchor=north west] {$F$};
+\draw (2.22,4.64) node[anchor=north west] {$B$};
+\draw (-2.55,-0.07) node[anchor=north west] {$A$};
+\draw [dash pattern=on 2pt off 2pt] (-4,-3)-- (-4,-3.5);
+\draw [dash pattern=on 2pt off 2pt] (-4,-3.5)-- (-3.5,-3.5);
+\draw [dash pattern=on 2pt off 2pt] (-3.5,-3.5)-- (-3.5,-4);
+\draw [dash pattern=on 2pt off 2pt] (-3.5,-4)-- (-3,-4);
+\draw [dash pattern=on 2pt off 2pt] (-3,-4)-- (-3,-4.5);
+\draw [dash pattern=on 2pt off 2pt] (-3,-4.5)-- (-2.5,-4.5);
+\draw [dash pattern=on 2pt off 2pt] (-2.5,-4.5)-- (-2.5,-5);
+\draw [dash pattern=on 2pt off 2pt] (-2.5,-5)-- (-2,-5);
+\draw [dash pattern=on 2pt off 2pt] (-2,-5)-- (-2,-5.5);
+\draw [dash pattern=on 2pt off 2pt] (-2,-5.5)-- (-1.5,-5.5);
+\draw [dash pattern=on 2pt off 2pt] (-1.5,-5.5)-- (-1.5,-6);
+\draw [dash pattern=on 2pt off 2pt] (-1.5,-6)-- (-1,-6);
+\draw [dash pattern=on 2pt off 2pt] (-1,-6)-- (-1,-6.5);
+\draw [dash pattern=on 2pt off 2pt] (-1,-6.5)-- (-0.5,-6.5);
+\draw [dash pattern=on 2pt off 2pt] (-0.5,-6.5)-- (-0.5,-3);
+\draw [dash pattern=on 2pt off 2pt] (7,6)-- (7.5,6);
+\draw [dash pattern=on 2pt off 2pt] (7.5,6)-- (7.5,5.5);
+\draw [dash pattern=on 2pt off 2pt] (7.5,5.5)-- (8,5.5);
+\draw [dash pattern=on 2pt off 2pt] (8,5.5)-- (8,5);
+\draw [dash pattern=on 2pt off 2pt] (8,5)-- (8.5,5);
+\draw [dash pattern=on 2pt off 2pt] (8.5,5)-- (8.5,4.5);
+\draw [dash pattern=on 2pt off 2pt] (8.5,4.5)-- (9,4.5);
+\draw [dash pattern=on 2pt off 2pt] (9,4.5)-- (9,4);
+\draw [dash pattern=on 2pt off 2pt] (9,4)-- (9.5,4);
+\draw [dash pattern=on 2pt off 2pt] (9.5,4)-- (9.5,3.5);
+\draw [dash pattern=on 2pt off 2pt] (9.5,3.5)-- (10,3.5);
+\draw [dash pattern=on 2pt off 2pt] (10,3.5)-- (10,3);
+\draw [dash pattern=on 2pt off 2pt] (10,3)-- (10.5,3);
+\draw [dash pattern=on 2pt off 2pt] (10.5,3)-- (10.5,2.5);
+\draw [dash pattern=on 2pt off 2pt] (10.5,2.5)-- (7,2.5);
+\end{tikzpicture}
+\caption{The moon polyomino $M_1$ after modifying $F$}
+\label{figure_M1}
+\end{figure}
+
+We continue by defining a family $\mathcal{L}$ of mappings assigning a positive integer to every maximal rectangle of $M_1$.
+A mapping $\Lambda$ belongs to $\mathcal{L}$ if and only if the following conditions are met:
+\begin{enumerate}[(a)]
+\item For $1 \leq i \leq n$, let $A_i$ be the unique maximal rectangle of width $i$ in $M_1$. Then $\Lambda(A_i) = a_i$.
+\item For $1 \leq j \leq m$, let $B_j$ be the unique maximal rectangle of height $j$ in $M_1$. Then $\Lambda(B_j) = b_j$,
+\item for any other maximal rectangle $R$ it is true that $\Lambda(R) \leq l$ 
+\item There is at least one maximal rectangle $R$ such that $\Lambda(R) = l$.
+\end{enumerate}
+
+Let $\mathcal{F}'$ be the set of fillings of $M_1$ obtained as a union of $\mathcal{F}(M_1, \Lambda, \bm{r}^1, \bm{c}^1)$ for every
+$\Lambda \in \mathcal{L}$. Then $\mathcal{F}'$ is the set of fillings of $M_1$ in which the longest $NE$-chain has length $l$
+and in addition for every $1 \leq i \leq n$ the longest $NE$-chain in the rectangle $A_i$ has length $a_i$
+and for every $1 \leq j \leq m$ the longest $NE$-chain in the rectangle $B_j$ has length $b_j$. But since the newly attached
+rows and columns are always empty, the chains are always contained in the original diagram $F$ and therefore the set
+$\mathcal{F}'$ is in 1-to-1 correspondence with the set $\mathcal{F}^NE_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b}$.
+
+Next we perform the transformation described in Theorem \ref{thm_rubey} several times to obtain a Ferrers diagram $F_1$:
+\begin{itemize}
+\item for every $i$ iterating from $n$ to $1$, move the leftmost column of $A_i$ to the rightmost end of the rectangle,
+\item for every $j$ iterating from $m$ to $1$, move the top row of $B_j$ to the bottom of the rectangle.
+\end{itemize}
+This creates the Ferrers diagram $F_1$ as illustrated by the Figure \ref{figure_F1}.
+Let $\sigma$ be the permutation of columns and $\pi$ be the permutation of rows which created $F_1$ from $M_1$. By
+Theorem \ref{thm_rubey} we get that for every $\Lambda \in \mathcal{L}$ there is a bijection between 
+$\mathcal{F}^{NE}(M_1, \Lambda, \bm{r}^1, \bm{c}^1)$ and $\mathcal{F}^{NE}(F_1, \Lambda, \pi\bm{r}^1, \sigma\bm{c}^1)$.
+Let $\mathcal{F}''$ be the set of fillings of $F_1$ obtained as a union of $\mathcal{F}^{NE}(F_1, \Lambda, \pi\bm{r}^1, \sigma\bm{c}^1)$
+for every $\Lambda \in \mathcal{L}$. Overall we obtain a bijection between the sets $\mathcal{F}'$ and $\mathcal{F}''$.
+Finally, notice that, similarly as the fillings of $\mathcal{F}'$ correspond to the fillings
+of $\mathcal{F}^{NE}_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$,
+also the fillings of $\mathcal{F}''$ correspond to the fillings of $\mathcal{F}^{NE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$,
+which completes the proof.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.9cm,y=0.9cm]
+\clip(-4.17,-6.63) rectangle (10.58,6.13);
+\draw [line width=1.6pt] (-4,6)-- (-4,-3);
+\draw (-4,-3)-- (0,-3);
+\draw [line width=1.6pt] (-4,6)-- (7,6);
+\draw (7,6)-- (7,2);
+\draw (7,2)-- (5,2);
+\draw (5,2)-- (5,1);
+\draw (5,1)-- (4,1);
+\draw (4,1)-- (4,-1);
+\draw (4,-1)-- (1,-1);
+\draw (1,-1)-- (1,-2);
+\draw (1,-2)-- (0,-2);
+\draw (0,-2)-- (0,-3);
+\draw [line width=1.6pt] (-0.5,-3)-- (-0.5,6);
+\draw [line width=1.6pt] (7,2.5)-- (-4,2.5);
+\draw [line width=1.6pt] (-4,-3)-- (-0.5,-3);
+\draw [line width=1.6pt] (7,2.5)-- (7,6);
+\draw (-2.58,4.62) node[anchor=north west] {$F$};
+\draw (2.23,4.62) node[anchor=north west] {$B$};
+\draw (-2.56,-0.08) node[anchor=north west] {$A$};
+\draw [dash pattern=on 2pt off 2pt] (-4,-3)-- (-4,-6.5);
+\draw [dash pattern=on 2pt off 2pt] (-4,-6.5)-- (-3.5,-6.5);
+\draw [dash pattern=on 2pt off 2pt] (-3.5,-6.5)-- (-3.5,-6);
+\draw [dash pattern=on 2pt off 2pt] (-3.5,-6)-- (-3,-6);
+\draw [dash pattern=on 2pt off 2pt] (-3,-6)-- (-3,-5.5);
+\draw [dash pattern=on 2pt off 2pt] (-3,-5.5)-- (-2.5,-5.5);
+\draw [dash pattern=on 2pt off 2pt] (-2.5,-5.5)-- (-2.5,-5);
+\draw [dash pattern=on 2pt off 2pt] (-2.5,-5)-- (-2,-5);
+\draw [dash pattern=on 2pt off 2pt] (-2,-5)-- (-2,-4.5);
+\draw [dash pattern=on 2pt off 2pt] (-2,-4.5)-- (-1.5,-4.5);
+\draw [dash pattern=on 2pt off 2pt] (-1.5,-4.5)-- (-1.5,-4);
+\draw [dash pattern=on 2pt off 2pt] (-1.5,-4)-- (-1,-4);
+\draw [dash pattern=on 2pt off 2pt] (-1,-4)-- (-1,-3.5);
+\draw [dash pattern=on 2pt off 2pt] (-1,-3.5)-- (-0.5,-3.5);
+\draw [dash pattern=on 2pt off 2pt] (-0.5,-3.5)-- (-0.5,-3);
+\draw [dash pattern=on 2pt off 2pt] (7,6)-- (10.5,6);
+\draw [dash pattern=on 2pt off 2pt] (10.5,6)-- (10.5,5.5);
+\draw [dash pattern=on 2pt off 2pt] (10.5,5.5)-- (10,5.5);
+\draw [dash pattern=on 2pt off 2pt] (10,5.5)-- (10,5);
+\draw [dash pattern=on 2pt off 2pt] (10,5)-- (9.5,5);
+\draw [dash pattern=on 2pt off 2pt] (9.5,5)-- (9.5,4.5);
+\draw [dash pattern=on 2pt off 2pt] (9.5,4.5)-- (9,4.5);
+\draw [dash pattern=on 2pt off 2pt] (9,4.5)-- (9,4);
+\draw [dash pattern=on 2pt off 2pt] (9,4)-- (8.5,4);
+\draw [dash pattern=on 2pt off 2pt] (8.5,4)-- (8.5,3.5);
+\draw [dash pattern=on 2pt off 2pt] (8.5,3.5)-- (8,3.5);
+\draw [dash pattern=on 2pt off 2pt] (8,3.5)-- (8,3);
+\draw [dash pattern=on 2pt off 2pt] (8,3)-- (7.5,3);
+\draw [dash pattern=on 2pt off 2pt] (7.5,3)-- (7.5,2.5);
+\draw [dash pattern=on 2pt off 2pt] (7.5,2.5)-- (7,2.5);
+\end{tikzpicture}
+\caption{The Ferrers diagram $F_1$ after applying Theorem \ref{thm_rubey}}
+\label{figure_F1}
+\end{figure}
+
+
+%We start by a modification of the diagram $F$ which will maintain the fillings in question. Namely, we will add some new columns
+%to the rectangle $A$ and modify $\bm{c}$ appropriately, assigning $0$ to the new columns. Then we will add some new
+%rows to the rectangle $B$ and modify $\bm{r}$ appropriately. We modify $F$ as follows:
+%\begin{itemize}
+%\item add $l - a_n$ new columns to the left of $A$,
+%\item for every $1 \leq i < n$, add $a_{i+1} - a_i$ new columns between the $(i+1)$-th and $i$-th columns of $A$, counting from the right side,
+%\item add $l - b_m$ new rows above the modified rectangle $B$,
+%\item for every $1 \leq j < m$, add $b_{j+1} - b_j$ new rows between the $(j+1)$-th and $j$-th rows of $B$, counting from below.
+%\end{itemize}
+%
+%Let $s$ be the total number of added columns and let $t$ be the total number of added rows. Note that $A$ now has
+%$n + s$ columns, $B$ has $m + t$ rows and the resulting diagram is still a Ferrers diagram $F'$. We further modify $F'$ by adding
+%a rectangle $Q_A$ with $s$ new rows of length $n + s$ to the bottom of $F'$ and a rectangle $Q_B$
+%with $t$ new columns of height $m + t$ to the right side of $F'$ so that the resulting diagram is a Ferrers diagram $F_1$.
+%Finally, we add one new dummy column of height $h(F) + t$ left of the modified rectangle $A$ and a new dummy row of length $w(F) + s + 1$
+%above the modified rectangle $B$, these will always remain empty. This addition results in a moon polyomino $M_1$.
+%
+%\begin{figure}[h]
+%\centering
+%\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.97cm,y=0.97cm]
+%\clip(-5.51,-5.24) rectangle (9.11,7.6);
+%\draw [line width=1.6pt] (-4,6)-- (-4,-3);
+%\draw (-4,-3)-- (0,-3);
+%\draw [line width=1.6pt] (-4,6)-- (7,6);
+%\draw (7,6)-- (7,2);
+%\draw (7,2)-- (5,2);
+%\draw (5,2)-- (5,1);
+%\draw (5,1)-- (4,1);
+%\draw (4,1)-- (4,-1);
+%\draw (4,-1)-- (1,-1);
+%\draw (1,-1)-- (1,-2);
+%\draw (1,-2)-- (0,-2);
+%\draw (0,-2)-- (0,-3);
+%\draw [line width=1.6pt] (-0.5,-3)-- (-0.5,6);
+%\draw [line width=1.6pt] (7,2.5)-- (-4,2.5);
+%\draw [dash pattern=on 2pt off 2pt] (7,2.5)-- (9,2.5);
+%\draw [dash pattern=on 2pt off 2pt] (9,2.5)-- (9,6);
+%\draw [dash pattern=on 2pt off 2pt] (9,6)-- (7,6);
+%\draw [dash pattern=on 2pt off 2pt] (-4,-3)-- (-4,-5);
+%\draw [dash pattern=on 2pt off 2pt] (-4,-5)-- (-0.5,-5);
+%\draw [dash pattern=on 2pt off 2pt] (-0.5,-5)-- (-0.5,-3);
+%\draw [line width=1.6pt] (-4,-3)-- (-0.5,-3);
+%\draw [line width=1.6pt] (7,2.5)-- (7,6);
+%\draw (1,1) node {$F$};
+%\draw (2.23,4.64) node {$B$};
+%\draw (-2.57,-0.06) node {$A$};
+%\draw (8.07,4.45) node {$Q_B$};
+%\draw (-2.44,-4.07) node {$Q_A$};
+%\draw [dash pattern=on 2pt off 2pt] (-4,-5)-- (-5,-5);
+%\draw [dash pattern=on 2pt off 2pt] (-5,-5)-- (-5,6);
+%\draw [dash pattern=on 2pt off 2pt] (-5,6)-- (-4,6);
+%\draw [dash pattern=on 2pt off 2pt] (-5,6)-- (-5,7);
+%\draw [dash pattern=on 2pt off 2pt] (-5,7)-- (9,7);
+%\draw [dash pattern=on 2pt off 2pt] (9,7)-- (9,6);
+%\draw (-4.75,-4.75) node {$\times$};
+%\draw (-4.25,-4.25) node {$\times$};
+%\draw (-3.25,-3.75) node {$\times$};
+%\draw (-1.75,-3.25) node {$\times$};
+%\draw [dash pattern=on 2pt off 2pt] (-4,-3)-- (-5,-3);
+%\draw (8.75,6.75) node {$\times$};
+%\draw (8.25,6.25) node {$\times$};
+%\draw (7.75,5.25) node {$\times$};
+%\draw (7.25,3.75) node {$\times$};
+%\draw [dash pattern=on 2pt off 2pt] (7,6)-- (7,7);
+%\draw [dash pattern=on 2pt off 2pt] (-3.5,-3)-- (-3.5,6);
+%\draw [dash pattern=on 2pt off 2pt] (-3,-3)-- (-3,6);
+%\draw [dash pattern=on 2pt off 2pt] (-2,-3)-- (-2,6);
+%\draw [dash pattern=on 2pt off 2pt] (-1.5,-3)-- (-1.5,6);
+%\draw [dash pattern=on 2pt off 2pt] (7,5.5)-- (-5,5.5);
+%\draw [dash pattern=on 2pt off 2pt] (7,5)-- (-5,5);
+%\draw [dash pattern=on 2pt off 2pt] (7,4)-- (-5,4);
+%\draw [dash pattern=on 2pt off 2pt] (7,3.5)-- (-5,3.5);
+%
+%\draw [dash pattern=on 2pt off 2pt] (-5.5,-3)-- (-5,-3);
+%\draw [dash pattern=on 2pt off 2pt] (-5.5,-3)-- (-5.5,7);
+%\draw [dash pattern=on 2pt off 2pt] (-5.5,7)-- (-5,7);
+%\draw [dash pattern=on 2pt off 2pt] (-5.5,7)-- (-5.5,7.5);
+%\draw [dash pattern=on 2pt off 2pt] (-5.5,7.5)-- (7,7.5);
+%\draw [dash pattern=on 2pt off 2pt] (7,7)-- (7,7.5);
+%\end{tikzpicture}
+%\caption{The modified moon polyomino $M_1$}
+%\label{figure_F1}
+%\end{figure}
+%
+%We now set the entries of all the new rows and columns of $M_1$ in $\bm{r}$ and $\bm{c}$ to 1, except
+%for the dummy row and column, getting
+%the sequences $\bm{r^1}$ and $\bm{c^1}$, and fix the following partial sparse filling of $F_1$: 
+%\begin{itemize}
+%\item fill the $s \times s$ square consisting of the $s$ columns newly added to $A$ intersecting the $s$ rows of $Q_A$ with
+%a $NE$-chain of length $s$,
+%\item fill the $t \times t$ square consisting of the $t$ columns newly added to $B$ intersecting the $t$ rows of $Q_B$ with a
+%$NE$-chain of length $t$.
+%\end{itemize}
+%
+%The main observation now is that the fillings in $\F^{NE}(M_1, l, \bm{r^1}, \bm{c^1})$ with the described fixed filling
+%of $Q_A$ and $Q_B$ are in 1-to-1 correspondence with the fillings of $\F^{NE}_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$.
+%Indeed, consider a filling from $\F^{NE}_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$ and transform $F$ to $F_1$ whilst
+%keeping the chosen filling in place. Since we added $1$'s only to newly added columns and rows, the resulting filling is still sparse
+%and the constraints $\bm{a}$ and $\bm{b}$ accomodate for the $1$'s added in $Q_A$ and $Q_B$ and 
+% ensure that the length of the longest $NE$-chain in $F_1$ is still $l$. Similarly if we take a filling of $\F^{NE}(M_1, l, \bm{r^1}, \bm{c^1})$
+% with the described fixed filling of $Q_A$ and $Q_B$, the fixed part of the filling limits the lengths of longest $NE$-chains
+% in $A$ and $B$ in the same way as the constraints $\bm{a}$ and $\bm{b}$, so by simply ignoring the added rows and columns we obtain
+% a filling of $F$ from  $\F^{NE}_{in}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$.
+%
+%We now apply the transformation described by Theorem \ref{thm_rubey} to $M_1$ multiple times. For every row of $F$ below the rectangle $B$,
+%starting from the shortest, consider the corresponding row in $M_1$ and the maximal rectangle in $M_1$ containing it, and move the row to the 
+%top of the rectangle. Then, for every column of $F$ right of $A$, starting from the shortest, consider the corresponding column in $F_1$
+%and the maximal rectangle in $M_1$ containing it, and move the column to the left end of the rectangle. As a result we obtain
+%a moon polyomino $M$ with rows permuted by $\pi$ and columns permuted by $\sigma$ when compared to $M_1$ and by Theorem \ref{thm_rubey}
+%we obtain a bijection between $\F^{NE}(M_1, l, \bm{r^1}, \bm{c^1})$ and $\F^{NE}(M, l, \pi\bm{r^1}, \sigma\bm{c^1})$.
+%
+%Note that no cells of $Q_A$ or $Q_B$ were ever a part of any maximal rectangle used in the transformation 
+%because of the extra dummy row and column we added. Therefore,
+%since the filling changes only inside the maximal rectangle when using the map given by Theorem \ref{thm_rubey}, we may fix the
+%filling of $Q_A$ and $Q_B$ as described above and we obtain a finer bijection between fillings of $\F^{NE}(F_1, l, \bm{r^1}, \bm{c^1})$
+%with the fixed filling of $Q_A$ and $Q_B$ and fillings of $\F^{NE}(M, l, \pi\bm{r^1}, \sigma\bm{c^1})$ with the fixed filling of $Q_A$
+%and $Q_B$.
+%
+%Finally, note that rotating $M$ by 180 degrees and removing the extra rows and columns added at the start results again in the original shape $F$
+%and that the constraints that the fillings of $Q_A$ and $Q_B$ impose on the rest of the diagram correspond to the constraints
+%of fillings in $\F^{NE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$.
+%
+\end{proof}
+
+\section{Proof of Theorem \ref{thm_main}}
+
+We start by using the growth diagram construction of Section \ref{sec3} to prove an additional useful bijection
+between sets of constrained fillings described in Section \ref{sec4}.
+
+\begin{lemma}\label{lemma_flip}
+Let $F$ be a $NW$ Ferrers diagram with at least $n$ longest columns and at least $m$ longest rows, 
+$l \geq 1$ an integer, $\bm{r}$ and $\bm{c}$ sequences prescribing nonempty
+rows and columns of $F$, and $\bm{a} = (a_1, \ldots, a_n)$ and $\bm{b} = (b_1, \ldots, b_m)$ weakly increasing
+sequences of integers less than equal to $l$. Then there is a~bijection between the sets
+$\F^{NE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$ and $\F^{SE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$.
+\end{lemma}
+\begin{proof}
+Consider a filling of $F$ from $\F^{NE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$
+and build its growth diagram, obtaining the corresponding oscillating tableau $(\lambda^0, \lambda^1, \ldots, \lambda^k)$.
+The constraints $\bm{a}$ together with Theorem \ref{thm_greene} imply that for $1 \leq i \leq n$ the partition $\lambda^i$
+has exactly$a_i$ parts. Similarly the constraints $\bm{b}$ imply that for $1 \leq j \leq m$ the partition $\lambda^{k-j}$
+has exactly $b_j$ parts. Applying the transformation described in Theorem \ref{thm_krat_3} to the filling of $F$,
+we obtain a filling of $\F^{SE}(F, l, \bm{r}, \bm{c})$. In addition, since the oscillating tableau corresponding
+to this new filling is obtained by transposing the oscillating tableau for the original filling,
+we get for $1 \leq i \leq n$ that $(\lambda^i)^T_1 = a_i$ and so the longest $SE$-chain in the rectangle consisting of $i$ leftmost columns
+of $F$ has length $a_i$ by Theorem \ref{thm_greene}. Similarly we get for $1 \leq j \leq m$
+that $(\lambda^{k-j})^T_1 = b_j$ and so the longest $SE$-chain in the rectangle consisting of top $j$ rows of $F$ has length
+ $b_j$ by Theorem \ref{thm_greene}. Therefore the obtained filling belongs
+to $\F^{SE}_{out}(F, l, \bm{r}, \bm{c}, \bm{a}, \bm{b})$.
+\end{proof}
+
+Finally we have all we need to prove the main result.
+
+\begin{proof}[Proof of Theorem \ref{thm_main}]
+Lemma \ref{lemma_key} implies that it is enough to prove the theorem for simple skew diagrams. Let
+$$S = F_1 |^v G_1 |^h F_2 |^v \cdots |^h F_n |^v G_n$$
+be the simple representation of $S$.  The main idea of the proof
+is now to apply Lemma \ref{lemma_constraints} to individual Ferrers diagrams in the simple representation of $S$ using constraints
+constructed based on neighbouring diagrams.
+
+Choose any filling from $\F^{NE}(S, l, \bm{r}, \bm{c})$.
+Consider the diagram $F_i$ and let $\bm{r}^{F_i}$ and $\bm{c}^{F_i}$ be the sequences describing which rows and columns of $F_i$
+currently contain a 1. The current filling of $F_i$ of course belongs to $\F^{NE}(F_i, l, \bm{r}^{F_i}, \bm{c}^{F_i})$. Let $n$ be the number
+of columns of $F_i$ which are connected to a column of $G_{i-1}$ (if it exists, otherwise set $n$ to zero). Let $m$ be the number
+of rows of $F_i$ which are connected to a row of $G_i$. We define the following rectangles:
+\begin{itemize}
+\item $A^{G_{i-1}}$ is the rectangle consisting of the $n$ rightmost columns of $G_{i-1}$,
+\item $A^{F_i}$ is the rectangle consisting of the $n$ leftmost columns of $F_i$,
+\item $B^{F_i}$ is the rectangle consisting of the top $m$ rows of $F_i$,
+\item $B^{G_i}$ is the rectangle consisting of the bottom $m$ rows of $G_i$.
+\end{itemize}
+We define constraints $\bm{a} = (a_1, a_2, \ldots, a_n)$
+and $\bm{b} = (b_1, b_2, \ldots, b_m)$ for fillings of $F_i$ as follows:
+\begin{itemize}
+\item if $x$ is the length of the longest $NE$-chain contained in $j$ rightmost columns of $A^{F_i}$, set $a_j$ to $x$,
+\item if $y$ is the length of the longest $NE$-chain contained in the bottom $j$ rows of $B^{F_i}$, set $b_j$ to $y$.
+\end{itemize}
+
+From the way we defined $\bm{a}$ and $\bm{b}$ it is now clear that the filling of $F_i$
+belongs to $\F^{NE}_{in}(F_i, l, \bm{r}^{F_i}, \bm{c}^{F_i}, \bm{a}, \bm{b})$. We now use the bijective map
+of Lemma \ref{lemma_constraints} to transform the filling of $F_i$ into a filling
+from $\F^{NE}_{out}(F_i, l, \bm{r}^{F_i}, \bm{c}^{F_i}, \bm{a}, \bm{b})$ and to this filling
+we apply the bijective transformation of Lemma \ref{lemma_flip}, obtaining
+a filling from $\F^{SE}_{out}(F_i, l, \bm{r}^{F_i}, \bm{c}^{F_i}, \bm{a}, \bm{b})$.
+
+This way we transform the filling of every $F_i$ and every $G_i$ in the simple representation of $S$. The individual Ferrers
+diagrams now avoid $SE$-chains longer than $l$, so it remains to prove that the fillings of rectangles connecting any two neighbouring diagrams
+avoid them as well. Consider the diagrams $F_i$ and $G_i$. Any $SE$-chain longer than $l$ in $F_i |^v G_i$ would
+have to be contained in the rectangle $R$ consisting of the rectangles $B^{F_i}$ and $B^{G_i}$.
+Let $\bm{a}^{F_i}$ and $\bm{b}^{F_i}$ be the constraints for the filling of $F_i$ as constructed above
+and let $\bm{a}^{G_i}$ and $\bm{b}^{G_i}$ be the same constraints for the filling of $G_i$. Suppose
+for the sake of a contradiction that there is a $SE$-chain of length $l+1$ inside $R$ and that
+$k$ 1's of the chain are contained in the top $j$ rows of $B^{F_i}$ and the remaining $l+1-k$ 1's of the chain
+are contained in the bottom $m-j$ rows of $B^{G_i}$, thus $k \leq b^{F_i}_j$ and $l+1-k \leq b^{G_i}_{m-j}$,
+giving $b^{F_i}_j + b^{G_i}_{m-j} \geq l+1$. On the other hand $b^{F_i}_j$ is the length of the longest $NE$-chain
+contained in the bottom $j$ rows of $B^{F_i}$ in the original filling and $b^{G_i}_{m-j}$ is the length of the longest $NE$-chain
+contained in the top $m-j$ rows of $B^{G_i}$ in the original filling and therefore $b^{F_i}_j + b^{G_i}_{m-j} \leq l$
+and a contradiction is obtained. Therefore the resulting filling of $S$ belongs to $\F^{SE}(S, l, \bm{r}, \bm{c})$
+and since it was obtained using bijective transformations, the proof is finished.
+\end{proof}
